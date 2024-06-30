@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output,EventEmitter } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
+  @Output() toggleSidebarEvent = new EventEmitter<void>();
   isExpanded = false;
   _isOpen1 = false; // used by subitems open
   _isOpenEmpManagament = false; // used by subitems open
@@ -17,6 +18,7 @@ export class SidebarComponent {
 
   toggleSidebar() {
     this.isExpanded = !this.isExpanded;
+    this.toggleSidebarEvent.emit();
   }
 
   toggleOpen1() {

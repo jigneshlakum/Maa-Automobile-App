@@ -3,7 +3,6 @@ import { AuthenticationService } from '../../Services/authentication.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../Store/reducers';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
