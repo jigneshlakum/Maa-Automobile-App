@@ -14,7 +14,7 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   getCustomers(): Observable<{ status: boolean, data: Customer[], message: string }> {
-    return this.http.get<{ status: boolean, data: Customer[], message: string }>(`${this.APIBaseUrl}/customers`);
+    return this.http.get<{ status: boolean, data: Customer[], message: string }>(`${this.APIBaseUrl}customers`);
   }
 
 }
