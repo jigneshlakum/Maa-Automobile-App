@@ -1,0 +1,57 @@
+<div class="page__inner">
+  <div class="page__container">
+    <div class="create">
+      <div class="create__card card">
+        <div class="card__head">
+          <div class="title-green card__title">Employee Group</div>
+          <a class="button-stroke button-small card__button" routerLink="/user/employee-group">
+            <svg class="icon icon-arrow-left">
+              <use xlink:href="#icon-arrow-left"></use>
+            </svg><span>Back</span>
+          </a>
+        </div>
+        <form [formGroup]="employeeform" (ngSubmit)="onSubmit()">
+
+          <div class="field fieldmargin" [class.error]="isFieldInvalid('Name')">
+            <div class="field__label">Name </div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="Name" name="Name" placeholder="Your group name">
+            </div>
+          </div>
+
+          <div class="field fieldmargin" [class.error]="isFieldInvalid('UserGroupCode')">
+            <div class="field__label">Auto generate Code </div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="UserGroupCode" name="UserGroupCode"
+                [disabled]="true" placeholder="Auto generate code">
+            </div>
+          </div>
+
+          <div class="field fieldmargin">
+            <label class="switch">
+              <input type="checkbox" [checked]="_isSelectToggle" (change)="onToggleChange($event)" />
+              <span class="slider"></span>
+              <span class="status-text">{{ _isSelectToggle ? 'Active' : 'Inactive' }}</span>
+            </label>
+          </div>
+
+          <div class="filters__btns">
+            <a class="button-stroke panel__button  answer__button" routerLink="/user/employee-group">Cancel</a>
+            @if(!loading){
+            <button class="button panel__button">
+              <span>{{ _label }}</span>
+            </button>
+            }
+
+            @if(loading){
+            <button class="button panel__button">
+              Creating... <i class="fa fa-refresh fa-spin"></i>
+            </button>
+            }
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

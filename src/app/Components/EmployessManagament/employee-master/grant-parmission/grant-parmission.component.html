@@ -1,0 +1,78 @@
+@if(loading$){
+<div class="topbar-progress"></div>
+}
+
+<div class="page__inner">
+  <div class="page__container">
+    <div class="create">
+      <div class="create__card card">
+        <div class="card__head">
+          <div class="title-green card__title">Employee Grant Permissions</div>
+          <a class="button-stroke button-small card__button" routerLink="/user/employee-group">
+            <svg class="icon icon-arrow-left">
+              <use xlink:href="#icon-arrow-left"></use>
+            </svg><span>Back</span>
+          </a>
+        </div>
+
+        <div class="sidebar__menu">
+          @for (item of menuItems; track $index) {
+          <div class="sidebar__item sidebar__item_dropdown" [class.active]="item.IsAccess">
+            <div class="sidebar__top">
+              <button class="sidebar__head" (click)="toggleItem(item)">
+                @if (item.PageName === 'Dashboad') {
+                <svg class="icon icon-home">
+                  <use xlink:href="#icon-home"></use>
+                </svg>
+                }
+
+                @if (item.PageName === 'Commission Setup') {
+                <svg class="icon icon-diamond">
+                  <use xlink:href="#icon-diamond"></use>
+                </svg>
+                }@else if ( item.PageName === 'Employee Management') {
+                <svg class="icon profile-circle">
+                  <use xlink:href="#icon-profile-circle"></use>
+                </svg>
+                }
+
+                {{ item.PageName }}
+                <span class="switchMenu">
+                  <label class="switch">
+                    <input type="checkbox" [checked]="item.IsAccess"
+                      (click)="$event.stopPropagation(); toggleItem(item)" />
+                    <span class="slider"></span>
+                    <span class="status-text">{{ item.IsAccess ? 'Allow' : 'Don`t Allow' }}</span>
+                  </label>
+                </span>
+              </button>
+            </div>
+            @for (subItem of item.subItems; track $index) {
+            @if (item.subItems) {
+            <div class="sidebar__body">
+              <button class="sidebar__link" (click)="toggleItem(subItem)">
+                <svg class="icon icon-arrow-next">
+                  <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+                {{ subItem.PageName }}
+                <span class="switchMenu">
+                  <label class="switch">
+                    <input type="checkbox" [checked]="subItem.IsAccess"
+                      (click)="$event.stopPropagation(); toggleItem(subItem)" />
+                    <span class="slider"></span>
+                    <span class="status-text">{{ subItem.IsAccess ? 'Allow' : 'Don`t Allow' }}</span>
+                  </label>
+                </span>
+              </button>
+            </div>
+            }
+            }
+          </div>
+          }
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

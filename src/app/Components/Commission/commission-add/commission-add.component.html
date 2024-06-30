@@ -1,0 +1,59 @@
+<div class="page__inner">
+  <div class="page__container">
+    <div class="create">
+      <div class="create__card card">
+        <div class="card__head">
+          <div class="title-green card__title">Commission</div>
+          <a class="button-stroke button-small card__button" routerLink="/commission">
+            <svg class="icon icon-arrow-left">
+              <use xlink:href="#icon-arrow-left"></use>
+            </svg><span>Back</span>
+          </a>
+        </div>
+
+        <div class="field">
+          <div class="field__label">Input 1
+            <div class="tooltip" title="Maximum 100 characters. No HTML or emoji allowed">
+              <svg class="icon icon-info">
+                <use xlink:href="#icon-info"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="field__wrap">
+            <input class="field__input" type="text" name="title" required>
+          </div>
+        </div>
+
+        <div class="create__label">Check Box
+          <div class="tooltip" title="Maximum 100 characters. No HTML or emoji allowed">
+            <svg class="icon icon-info">
+              <use xlink:href="#icon-info"></use>
+            </svg>
+          </div>
+        </div>
+
+
+        <div class="create__list">
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox" checked><span class="checkbox__inner"><span
+                class="checkbox__tick"></span><span class="checkbox__text">Test 1</span></span>
+          </label>
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox" checked><span class="checkbox__inner"><span
+                class="checkbox__tick"></span><span class="checkbox__text">Test 2</span></span>
+          </label>
+
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox"><span class="checkbox__inner"><span
+                class="checkbox__tick"></span><span class="checkbox__text">Test 3</span></span>
+          </label>
+
+        </div>
+        <div class="filters__btns">
+          <a class="button-stroke panel__button  answer__button" routerLink="/commission">Cancel</a>
+          <button class="button panel__button"><span>{{_label}}</span> </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

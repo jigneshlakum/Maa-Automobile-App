@@ -1,0 +1,56 @@
+@if(_isLoading){
+<div class="topbar-progress"></div>
+}
+
+<div class="page page_simple">
+  <div class="entry">
+    <div class="entry__wrapper">
+      <a class="entry__logo" routerLink="#"><img class="some-icon" src="../../../assets/img/logo-dark.png"
+          alt="Core"><img class="some-icon-dark" src="../../../assets/img/logo-light.png" alt="Core"></a>
+      <div class="h2 entry__title">Sign in</div>
+      <div class="entry__fieldset">
+        <form [formGroup]="loginform" (ngSubmit)="signIn()">
+          <div class="field field_icon" [class.error]="isFieldInvalid('email')">
+            <div class="field__wrap">
+              <input class="field__input" type="emial" formControlName="email" name="email" placeholder="Your email">
+              <div class="field__icon">
+                <svg class="icon icon-mail">
+                  <use xlink:href="#icon-mail"></use>
+                </svg>
+              </div>
+            </div>
+            <!-- @if (loginform.controls.email.invalid && loginform.controls.email.touched) {
+            <div class="error-message">
+              Please enter a valid email address.
+            </div>
+            } -->
+          </div>
+
+          <div class="field field_icon" [class.error]="isFieldInvalid('password')">
+            <div class="field__wrap">
+              <input class="field__input" type="password" formControlName="password" name="password"
+                placeholder="Your Password">
+              <div class="field__icon">
+                <svg class="icon icon-lock">
+                  <use xlink:href="#icon-lock"></use>
+                </svg>
+              </div>
+            </div>
+            <!-- @if (loginform.controls.password.invalid && loginform.controls.password.touched) {
+            <div class="error-message">
+              Please enter a valid password.
+            </div>
+            } -->
+          </div>
+          <button type="submit" class="button entry__button">
+            @if(_isLoading){
+            Please Wait
+            }@else{
+            <ng-container>Sign In</ng-container>
+            }
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

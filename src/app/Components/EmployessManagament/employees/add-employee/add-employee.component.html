@@ -1,0 +1,106 @@
+<div class="page__inner">
+  <div class="page__container">
+    <div class="create">
+      <div class="create__card card">
+        <div class="card__head">
+          <div class="title-green card__title">Employee Group</div>
+          <a class="button-stroke button-small card__button" routerLink="/user/employee">
+            <svg class="icon icon-arrow-left">
+              <use xlink:href="#icon-arrow-left"></use>
+            </svg><span>Back</span>
+          </a>
+        </div>
+        <form [formGroup]="employeeform" (ngSubmit)="onSubmit()">
+
+          <div class="field fieldmargin"
+            [class.error]="employeeform.get('UserName')?.touched && employeeform.get('UserName')?.invalid">
+            <div class="field__label">UserName</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="UserName" placeholder="UserName">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="employeeform.get('Email')?.touched && employeeform.get('Email')?.invalid">
+            <div class="field__label">Email</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="Email" placeholder="test123@gmail.com">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="employeeform.get('Password')?.touched && employeeform.get('Password')?.invalid">
+            <div class="field__label">Password</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="Password" placeholder="Admin@123">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="employeeform.get('PhoneNumber')?.touched && employeeform.get('PhoneNumber')?.invalid">
+            <div class="field__label">PhoneNumber</div>
+            <div class="field__wrap">
+              <input class="field__input" type="number" formControlName="PhoneNumber"
+                placeholder="Allow only 10 digit number">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="employeeform.get('FullName')?.touched && employeeform.get('FullName')?.invalid">
+            <div class="field__label">Full Name</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="FullName" placeholder="FullName">
+            </div>
+          </div>
+
+
+          <div class="field fieldmargin">
+            <div class="field__label">Address</div>
+            <div class="field__wrap">
+              <textarea class="field__input" type="text" formControlName="Address" placeholder="Address"></textarea>
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="employeeform.get('UserGroupID')?.touched && employeeform.get('UserGroupID')?.invalid">
+            <div class="field__label">Select Employee group</div>
+            <div class="field__wrap">
+              <!-- <select class="select">
+                <option>Select Employee</option>
+                @for (item of employeeGroupsItems$; track $index) {
+                <option value="{{item.UserGroupID}}">{{item.Name}} </option>
+                }
+              </select> -->
+              <!-- <ng-select [items]="employeeGroupsItems$" bindLabel="name" autofocus bindValue="id" >
+              </ng-select> -->
+            </div>
+          </div>
+
+          <div class="field fieldmargin">
+            <label class="switch">
+              <input type="checkbox" [checked]="_isSelectToggle" (change)="onToggleChange($event)" />
+              <span class="slider"></span>
+              <span class="status-text">{{ _isSelectToggle ? 'Active' : 'Inactive' }}</span>
+            </label>
+          </div>
+
+          <div class="filters__btns">
+            <a class="button-stroke panel__button  answer__button" routerLink="/user/employee-group">Cancel</a>
+            @if(!loading){
+            <button class="button panel__button">
+              <span>{{ _label }}</span>
+            </button>
+            }
+
+            @if(loading){
+            <button class="button panel__button">
+              Creating... <i class="fa fa-refresh fa-spin"></i>
+            </button>
+            }
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="popup popup_success js-popup js-popup-success" [class.animation]="addclass" [class.visible]="addclass">
+  <div class="popup__overlay js-popup-overlay"></div>
+  <div class="popup__wrap js-popup-wrap">
+    <div class="delete">
+      <div class="delete__icon">❌</div>
+      <div class="delete__info">Delete!</div>
+      <div class="delete__text">Are You sure You Want to <span>Delete ?</span></div>
+      <div class="filters__btns">
+        <button class="button-stroke panel__button  answer__button" (click)="emitCloseIconClick()">Cancel</button>
+        <button class="button-stroke-red panel__button" (click)="emitDeleteClick()" ><span>Yes. delete it!</span> </button>
+      </div>
+    </div>
+    <button class="popup__close js-popup-close" (click)="emitCloseIconClick()">
+      <svg class="icon icon-close">
+        <use xlink:href="#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+</div>

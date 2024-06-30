@@ -1,0 +1,66 @@
+<div class="sidebar" [class.active]="isExpanded" [class.visible]="isExpanded">
+  <button class="sidebar__close" (click)="toggleSidebar()">
+    <svg class="icon icon-close">
+      <use xlink:href="#icon-close"></use>
+    </svg>
+  </button>
+  <a class="sidebar__logo" routerLink=""
+    ><img
+      class="some-icon"
+      src="../../../assets/img/logo-dark.png"
+      alt="Core" /><img
+      class="some-icon-dark"
+      src="../../../assets/img/logo-light.png"
+      alt="Core"
+  /></a>
+
+  <div class="sidebar__menu">
+    <a class="sidebar__item active" routerLink="/dashboard">
+      <svg class="icon icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      Dashboard
+    </a>
+
+    <a class="sidebar__item" routerLink="/customers">
+      <svg class="icon icon-diamond">
+        <use xlink:href="#icon-profile-circle"></use>
+      </svg>
+      Customers
+    </a>
+
+    <!-- <div
+      class="sidebar__item sidebar__item_dropdown"
+      [class.active]="_isOpenEmpManagament"
+    >
+      <div class="sidebar__top">
+        <button class="sidebar__head" (click)="toggleOpenEmpManagament()">
+          <svg class="icon icon-diamond">
+            <use xlink:href="#icon-profile-circle"></use>
+          </svg>
+          Employee Managament
+          <svg class="icon icon-arrow-down">
+            <use xlink:href="#icon-arrow-down"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="sidebar__body">
+        <a class="sidebar__link" routerLink="/user/employee">
+          Employee
+          <svg class="icon icon-arrow-next">
+            <use xlink:href="#icon-arrow-next"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="sidebar__body">
+        <a class="sidebar__link" routerLink="/user/employee-group">
+          Employee Group
+          <svg class="icon icon-arrow-next">
+            <use xlink:href="#icon-arrow-next"></use>
+          </svg>
+        </a>
+      </div>
+    </div> -->
+
+  </div>
+</div>

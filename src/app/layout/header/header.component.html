@@ -1,0 +1,89 @@
+
+
+
+<header class="header" data-id="#header">
+  <button class="header__burger"></button>
+  <button class="header__search">
+    <svg class="icon icon-search">
+      <use xlink:href="#icon-search"></use>
+    </svg>
+  </button>
+
+
+  <div class="header__control">
+
+    <!-- Message -->
+    <div class="header__item header__item_messages" [class.active]="_messagesActive">
+      <button class="header__head active" (click)="toggleMessages()">
+        <svg class="icon icon-message">
+          <use xlink:href="#icon-message"></use>
+        </svg>
+      </button>
+      <div class="header__body">
+        <div class="header__top">
+          <div class="header__title">Message</div>
+        </div>
+        <div class="header__list">
+          <a class="header__message new" href="message-center.html">
+            <div class="header__avatar"><img src="../../../assets/img/content/avatar-1.jpg" alt="Avatar" />
+            </div>
+            <div class="header__details">
+              <div class="header__line">
+                <div class="header__subtitle">Jarret Waelchi</div>
+                <div class="header__time">03:30PM</div>
+              </div>
+              <div class="header__content">When do you release the coded template</div>
+            </div>
+          </a>
+        </div>
+        <a class="button header__button" href="message-center.html">View in message center</a>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="header__item header__item_notifications" [class.active]="_notificationActive">
+      <button class="header__head active" (click)="toggleNotification()">
+        <svg class="icon icon-notification">
+          <use xlink:href="#icon-notification"></use>
+        </svg>
+      </button>
+      <div class="header__body">
+        <div class="header__top">
+          <div class="header__title">Notification</div>
+        </div>
+
+        <div class="header__list">
+          <a class="header__notification new">
+            <div class="header__avatar">
+              <img src="../../../assets/img/content/avatar-1.jpg" alt="Avatar" />
+              <div class="header__icon" style="background-color: #2a85ff;"><img src="../../../asstes/img/content/message.svg"
+                  alt="Status" /></div>
+            </div>
+            <div class="header__details">
+              <div class="header__line">
+                <div class="header__subtitle">Domenica</div>
+                <div class="header__login">domenica</div>
+                <div class="header__time">1h</div>
+              </div>
+              <div class="header__content">Comment on <strong>Smiles – 3D icons</strong></div>
+            </div>
+          </a>
+        </div>
+
+        <a class="button header__button" href="notification.html">See all notifications</a>
+      </div>
+    </div>
+
+    <div class="header__item header__item_user" [class.active]="_showProfile">
+      <button class="header__head" (click)="toggleProfile()">
+        <img src="../../../assets/img/content/avatar.jpg" alt="Avatar" />
+      </button>
+      <div class="header__body">
+        <div class="header__nav">
+          <a class="header__link">Account settings</a>
+          <a class="header__link" (click)="logout()" >Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

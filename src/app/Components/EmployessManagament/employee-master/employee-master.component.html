@@ -1,0 +1,94 @@
+@if(loading$){
+<div class="topbar-progress"></div>
+}
+
+<div class="page__inner">
+  <div class="page__container">
+    <div class="customer card">
+      <div class="card__head">
+        <div class="title-purple card__title">Employee Group</div>
+        <form class="form">
+          <input class="form__input" type="text" name="search" [(value)]="_searchTerm" placeholder="Searching...."
+            required="required" autocomplete="off" (input)="onSearch($event)" />
+          <button class="form__button">
+            <svg class="icon icon-search">
+              <use xlink:href="#icon-search"></use>
+            </svg>
+          </button>
+        </form>
+        <button routerLink="add" class="button filters__button">
+          <svg class="icon icon-add">
+            <use xlink:href="#icon-add"></use>
+          </svg><span>Create</span></button>
+      </div>
+
+      <div class="card">
+        <div class="payout">
+          <div class="payout__wrapper">
+            <div class="payout__table  table-responsive">
+              <div class="payout__row">
+                <div class="payout__col">Name</div>
+                <div class="payout__col">Group Code</div>
+                <div class="payout__col">Status</div>
+                <div class="payout__col">Action</div>
+              </div>
+              @for (item of _displayedItems; track $index) {
+              <div class="payout__row">
+                <div class="payout__col">{{item.Name}}</div>
+                <div class="payout__col">{{item.UserGroupCode}}</div>
+                <div class="payout__col">
+                  @if(item.IsActive){
+                  <div class="status-green-dark payout__status">Active</div>
+                  }
+                  @if(!item.IsActive){
+                  <div class="status-red-dark payout__status">In Active</div>
+                  }
+                </div>
+                <div class="payout__col">
+                  <div class="actions" [class.active]="_actionsVisibility[$index]">
+                    <button class="actions__button" (click)="toggleActionsVisibility($index)">
+                      <svg class="icon icon-more-horizontal">
+                        <use xlink:href="#icon-more-horizontal"></use>
+                      </svg>
+                    </button>
+                    <div class="actions__body">
+                      <button class="actions__option" (click)="navigateToPermission(item.UserGroupID)">
+                        <svg class="icon icon-lock">
+                          <use xlink:href="#icon-lock"></use>
+                        </svg>Grant permission
+                      </button>
+                      <button class="actions__option" (click)="navigateToEdit(item.UserGroupID)">
+                        <svg class="icon icon-edit">
+                          <use xlink:href="#icon-edit"></use>
+                        </svg>Edit Group
+                      </button>
+                      <button class="actions__option" (click)="toggleDeleteDialog(item.UserGroupID)">
+                        <svg class="icon icon-trash">
+                          <use xlink:href="#icon-trash"></use>
+                        </svg>Delete Group
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
+              @empty{
+              <div id="message-not-found">Data not found</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      @if (_displayedItems.length > 0) {
+      <div class="filters__btns">
+        <button class="button filters__button" (click)="previousPage()">Previous</button>
+        <button class="button filters__button" (click)="nextPage()">Next</button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+
+<!-- delete dialog -->
+<app-delete-dialog [addclass]="_showDeleteDialog" (toggleDeleteDialog)="toggleDeleteDialog(0)" (delete)="delete()" />
