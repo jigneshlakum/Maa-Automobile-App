@@ -12,7 +12,7 @@ import { CryptoService } from '../../../../helperService/CryptoService/crypto.se
 @Component({
   selector: 'app-add-group',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  ReactiveFormsModule
   templateUrl: './add-group.component.html',
   styleUrl: './add-group.component.css',
 })

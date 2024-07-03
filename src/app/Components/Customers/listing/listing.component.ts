@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeleteDialogComponent } from '../../CommonComponent/Dialog/delete-dialog/delete-dialog.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Customer } from '../../../Shared/Models/Customer.model';
 import { Store } from '@ngrx/store';
 import { CustomerState } from '../../../Store/CustomerAction/customer.reducer';
@@ -37,7 +37,8 @@ export class ListingComponent implements OnInit {
 
   constructor(
     private _store: Store<CustomerState>,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router$ : Router
   ) {
 
     this._store.select(selectLoading).subscribe((item) => {
@@ -108,8 +109,8 @@ export class ListingComponent implements OnInit {
 
   // ---------------- paginator end
 
-  toggleDeleteDialog(id: number) {
-    this._ids = id;
+  toggleDeleteDialog(item: any) {
+    this._ids = item._id;
     this._showDeleteDialog = !this._showDeleteDialog;
     this._actionsVisibility = new Array(this.customers$.length).fill(
       false
@@ -119,9 +120,17 @@ export class ListingComponent implements OnInit {
 
   delete(): void {
     if (this._ids !== null) {
-      // this._store.dispatch(deleteEmployeeGroup({ id: this._ids }));
+      this._store.dispatch(CustomerActions.deleteCustomer({ id: this._ids }));
       this.toggleDeleteDialog(0);
     }
   }
+
+
+// Route
+
+navigateToRoute(item: any) {
+  this.router$.navigate(['/customers/edit'], { queryParams: { id: item._id } });
+}
+
 
 }

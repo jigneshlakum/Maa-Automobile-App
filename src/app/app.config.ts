@@ -13,13 +13,13 @@ import { reducers } from './Store/reducers';
 import { effects } from './Store/effects';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationService } from './Services/authentication.service';
-import { withFetch, provideHttpClient } from '@angular/common/http';
-
+import { withFetch, provideHttpClient, withInterceptors } from '@angular/common/http';
+// import { httpInterceptor } from './Middleware/http.interceptor';
 
 
 const configToster = {
   timeOut: 2000,
-  positionClass: 'toast-top-right',
+  positionClass: 'toast-bottom-center',
   preventDuplicates: true,
 };
 
@@ -29,10 +29,11 @@ export function checkTokenExpiration(authService: AuthenticationService) {
 }
 
 export const appConfig: ApplicationConfig = {
+  
   providers: [
     provideAnimations(),
     provideHttpClient(withFetch()),
-    provideHttpClient(),
+    // provideHttpClient(withInterceptors([httpInterceptor]) ),
     provideClientHydration(),
     provideToastr(configToster),
     provideRouter(routes),

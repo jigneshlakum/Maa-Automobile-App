@@ -116,7 +116,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
-  private removeAuthToken(): void {
+  public removeAuthToken(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.TOKEN_KEY);
       localStorage.removeItem(this.EXPIRATION_KEY);

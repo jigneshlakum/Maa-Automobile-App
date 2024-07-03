@@ -10,6 +10,12 @@ export const selectAllCustomers = createSelector(
   (state: CustomerState) => state.customers
 );
 
+// Selector to get a single customer by ID
+export const selectCustomer = createSelector(
+  selectCustomerState,
+  (state: CustomerState) => state.selectedCustomer
+);
+
 // Selector to get loading state
 export const selectLoading = createSelector(
   selectCustomerState,

@@ -2,46 +2,32 @@
 <div class="topbar-progress"></div>
 }
 
+
 <div class="page__inner">
   <div class="page__container">
     <div class="customer card">
       <div class="card__head">
         <div class="title-purple card__title">Customers</div>
         <form class="form">
-          <input
-            class="form__input"
-            type="text"
-            name="search"
-            [(value)]="_searchTerm"
-            placeholder="Vehicle Number.., Customber Name.."
-            required="required"
-            autocomplete="off"
-            (input)="onSearch($event)"
-          />
+          <input class="form__input" type="text" name="search" [(value)]="_searchTerm"
+            placeholder="Vehicle Number.., Customber Name.." required="required" autocomplete="off"
+            (input)="onSearch($event)" />
           <button class="form__button">
             <svg class="icon icon-search">
               <use xlink:href="#icon-search"></use>
             </svg>
           </button>
         </form>
-        <a
-          routerLink="add"
-          class="button balance__button"
-          data-popup=".js-popup-success"
-        >
+        <button routerLink="/customers/add" class="button filters__button">
           <svg class="icon icon-add">
             <use xlink:href="#icon-add"></use>
-          </svg>
-          Add</a
-        >
+          </svg><span>Create</span></button>
       </div>
-
       <div class="card">
         <div class="payout">
           <div class="payout__wrapper table-responsive">
-            <div class="payout__table">
+            <div class="payout__table ">
               <div class="payout__row">
-                <div class="payout__col">#</div>
                 <div class="payout__col">Vehicle Number</div>
                 <div class="payout__col">Customber Name</div>
                 <div class="payout__col">Mobail Number</div>
@@ -56,7 +42,6 @@
               </div>
               @for (item of _displayedItems; track $index) {
               <div class="payout__row">
-                <div class="payout__col">{{$index + 1}}</div>
                 <div class="payout__col">{{item.vehicleNumber}}</div>
                 <div class="payout__col">{{item.customerName}}</div>
                 <div class="payout__col">{{item.mobileNumber}}</div>
@@ -68,30 +53,22 @@
                 <!-- <div class="payout__col">{{item.fullAddress}}</div> -->
                 <div class="payout__col">{{item.createdAt}}</div>
                 <div class="payout__col">
-                  <div
-                    class="actions"
-                    [class.active]="_actionsVisibility[$index]"
-                  >
-                    <button
-                      class="actions__button"
-                      (click)="toggleActionsVisibility($index)"
-                    >
+                  <div class="actions" [class.active]="_actionsVisibility[$index]">
+                    <button class="actions__button" (click)="toggleActionsVisibility($index)">
                       <svg class="icon icon-more-horizontal">
                         <use xlink:href="#icon-more-horizontal"></use>
                       </svg>
                     </button>
                     <div class="actions__body">
-                      <button class="actions__option">
+                      <button class="actions__option" (click)="navigateToRoute(item)">
                         <svg class="icon icon-edit">
-                          <use xlink:href="#icon-edit"></use></svg
-                        >Edit Commission
+                          <use xlink:href="#icon-edit"></use>
+                        </svg>Edit Customer
                       </button>
-                      <button
-                        class="actions__option"
-                      >
+                      <button class="actions__option" (click)="toggleDeleteDialog(item)">
                         <svg class="icon icon-trash">
-                          <use xlink:href="#icon-trash"></use></svg
-                        >Delete Commission
+                          <use xlink:href="#icon-trash"></use>
+                        </svg>Delete Customer
                       </button>
                     </div>
                   </div>
@@ -106,17 +83,14 @@
       </div>
       @if (_displayedItems.length > 0) {
       <div class="filters__btns">
-        <button class="button filters__button" (click)="previousPage()">
-          Previous
-        </button>
-        <button class="button filters__button" (click)="nextPage()">
-          Next
-        </button>
+        <button class="button filters__button" (click)="previousPage()">Previous</button>
+        <button class="button filters__button" (click)="nextPage()">Next</button>
       </div>
       }
+      <!-- here -->
     </div>
   </div>
-</div>
 
+  
 <!-- delete dialog -->
-<!-- <app-delete-dialog [addclass]="_showDeleteDialog" (toggleDeleteDialog)="toggleDeleteDialog(0)" (delete)="delete()" /> -->
+<app-delete-dialog [addclass]="_showDeleteDialog" (toggleDeleteDialog)="toggleDeleteDialog(0)" (delete)="delete()" />

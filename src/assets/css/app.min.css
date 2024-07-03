@@ -18598,13 +18598,15 @@ body.dark .payout__wrapper {
   display: table-row;
 }
 .payout__row:first-child .payout__col {
+  background-color: #1a1d1f;
+  font-family: "Inter", sans-serif;
   padding-top: 12px;
   padding-bottom: 16px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.33333;
-  font-weight: 500;
-  color: #6f767e;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  font-weight: 600;
+  color: #ffffff;
 }
 .payout__row:nth-child(2n) .payout__col {
   background: rgba(239, 239, 239, 0.35);
@@ -18643,12 +18645,12 @@ body.dark .payout__row:nth-child(2n) .payout__col {
     text-align: right;
   }
 }
-@media only screen and (max-width: 767px) {
+/* @media only screen and (max-width: 767px) {
   .payout__col:nth-child(2),
   .payout__col:nth-child(3) {
     display: none;
   }
-}
+} */
 
 .payout__status {
   font-size: 14px;

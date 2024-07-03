@@ -1,1 +1,111 @@
-<p>add works!</p>
+<div class="page__inner">
+  <div class="page__container">
+    <div class="create">
+      <div class="create__card card">
+        <div class="card__head">
+          <div class="title-green card__title">Customer {{_pageTitle}}</div>
+          <a class="button-stroke button-small card__button" routerLink="/customers">
+            <svg class="icon icon-arrow-left">
+              <use xlink:href="#icon-arrow-left"></use>
+            </svg><span>Back</span>
+          </a>
+        </div>
+        <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('vehicleNumber')?.touched && customerForm.get('vehicleNumber')?.invalid">
+            <div class="field__label">Vehicle Number</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="vehicleNumber" placeholder="Vehicle Number">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('customerName')?.touched && customerForm.get('customerName')?.invalid">
+            <div class="field__label ">Customer Name</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="customerName" placeholder="Customber Name">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('email')?.touched && customerForm.get('email')?.invalid">
+            <div class="field__label">Customber Email</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="email" placeholder="test123@gmail.com">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('mobileNumber')?.touched && customerForm.get('mobileNumber')?.invalid">
+            <div class="field__label">Mobile Number</div>
+            <div class="field__wrap">
+              <input class="field__input" type="number" formControlName="mobileNumber"
+                placeholder="Allow only 10 digit number">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('city')?.touched && customerForm.get('city')?.invalid">
+            <div class="field__label">City</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="city" placeholder="City">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('brandName')?.touched && customerForm.get('brandName')?.invalid">
+            <div class="field__label">Brand Name</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="brandName" placeholder="Brand Name">
+            </div>
+          </div>
+
+          <div class="field fieldmargin"
+            [class.error]="customerForm.get('modelName')?.touched && customerForm.get('modelName')?.invalid">
+            <div class="field__label">Model Name</div>
+            <div class="field__wrap">
+              <input class="field__input" type="text" formControlName="modelName" placeholder="Model Name">
+            </div>
+          </div>
+
+          <div class="field fieldmargin">
+            <div class="field__label">Address</div>
+            <div class="field__wrap">
+              <textarea class="field__input" type="text" formControlName="fullAddress" placeholder="Address"></textarea>
+            </div>
+          </div>
+
+          <div class="field fieldmargin">
+            <div class="field__label">Car Service</div>
+            <div class="field__wrap">
+              <select class="select">
+                <option>Select 1</option>
+                <option>Select 2</option>
+                <option>Select 3</option>
+                <option>Select 4</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="filters__btns">
+            <a class="button-stroke panel__button  answer__button" routerLink="/customers">Cancel</a>
+            @if(!loading){
+            <button class="button panel__button">
+              <span>{{ _label }}</span>
+            </button>
+            }
+
+            @if(loading){
+            <button class="button panel__button">
+              Creating... <i class="fa fa-refresh fa-spin"></i>
+            </button>
+            }
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
