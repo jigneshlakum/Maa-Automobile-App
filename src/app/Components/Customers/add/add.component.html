@@ -20,7 +20,7 @@
             [class.error]="customerForm.get('vehicleNumber')?.touched && customerForm.get('vehicleNumber')?.invalid">
             <div class="field__label">Vehicle Number</div>
             <div class="field__wrap">
-              <input class="field__input" type="text" formControlName="vehicleNumber" placeholder="Vehicle Number">
+              <input class="field__input uppercase" type="text" formControlName="vehicleNumber" placeholder="Vehicle Number">
             </div>
           </div>
 
@@ -95,13 +95,13 @@
 
           <div class="filters__btns">
             <a class="button-stroke panel__button  answer__button" routerLink="/customers">Cancel</a>
-            @if(!loading){
+            @if(!_btnLoading){
             <button class="button panel__button">
               <span>{{ _label }}</span>
             </button>
             }
 
-            @if(loading){
+            @if(_btnLoading){
             <button class="button panel__button">
               Creating... <i class="fa fa-refresh fa-spin"></i>
             </button>

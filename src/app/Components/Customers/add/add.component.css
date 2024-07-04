@@ -1,3 +1,8 @@
+.uppercase {
+  text-transform: uppercase;
+}
+
+
 .topbar-progress {
     position: fixed;
     top: 0;

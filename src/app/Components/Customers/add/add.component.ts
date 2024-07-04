@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Customer } from '../../../Shared/Models/Customer.model';
 import * as CustomerActions from '../../../Store/CustomerAction/customer.actions';
 import { selectCustomer } from '../../../Store/CustomerAction/customer.selectors';
-import { selectLoading } from '../../../Store/UserAction/selectors';
 
 declare var $: any; // Declare jQuery
 
@@ -18,6 +17,7 @@ declare var $: any; // Declare jQuery
 })
 export class AddComponent implements OnInit {
   loading$: boolean = false;
+  _btnLoading: boolean = false;
   _label: string = '';
   _pageTitle: string = '';
   customerId: string | null = null;
@@ -99,6 +99,7 @@ export class AddComponent implements OnInit {
       this.customerForm.markAllAsTouched();
       return;
     }
+    this._btnLoading = true
     const customer: Customer = this.customerForm.value as Customer;
     if (customer.id) {
       this.store.dispatch(CustomerActions.updateCustomer({ customer }));
