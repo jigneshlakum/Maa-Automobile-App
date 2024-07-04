@@ -16,7 +16,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user', component: UserComponent },
       {
-        path: 'customers',  // Prefix for commission routes
+        path: 'customers',  // Prefix for customers routes
         title : 'Customers',
         loadChildren: () => import('./Components/Customers/customers.module').then(m => m.CustomersModule)
       },

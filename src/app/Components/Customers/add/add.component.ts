@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Customer } from '../../../Shared/Models/Customer.model';
 import * as CustomerActions from '../../../Store/CustomerAction/customer.actions';
 import { selectCustomer } from '../../../Store/CustomerAction/customer.selectors';
+import { selectLoading } from '../../../Store/UserAction/selectors';
 
 declare var $: any; // Declare jQuery
 
@@ -16,7 +17,7 @@ declare var $: any; // Declare jQuery
   imports: [RouterLink, ReactiveFormsModule],
 })
 export class AddComponent implements OnInit {
-  loading: boolean = false;
+  loading$: boolean = false;
   _label: string = '';
   _pageTitle: string = '';
   customerId: string | null = null;
@@ -39,7 +40,7 @@ export class AddComponent implements OnInit {
     private builder: FormBuilder,
     private store: Store,
     private activateroute$: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this._pageTitle = this.activateroute$.snapshot.data['title'];
@@ -48,6 +49,7 @@ export class AddComponent implements OnInit {
     this.activateroute$.queryParams.subscribe(params => {
       this.customerId = params['id'];
       if (this.customerId) {
+        this.loading$ = true
         this.getCustomerById(this.customerId);
       }
     });
@@ -69,6 +71,7 @@ export class AddComponent implements OnInit {
   }
 
   private getCustomerById(id: string) {
+   
     this.store.dispatch(CustomerActions.getCustomerById({ id: id }));
 
     this.store.select(selectCustomer).subscribe((state: any) => {
@@ -86,6 +89,7 @@ export class AddComponent implements OnInit {
           fullAddress: customer.fullAddress,
           carService: customer.carService,
         });
+        this.loading$ = false
       }
     });
   }
@@ -101,6 +105,5 @@ export class AddComponent implements OnInit {
     } else {
       this.store.dispatch(CustomerActions.saveCustomer({ customer }));
     }
-    this.loading = true;
   }
 }
