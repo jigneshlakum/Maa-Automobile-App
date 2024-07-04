@@ -41,7 +41,7 @@ export class CustomerService {
 
   getCustomerById(id: any): Observable<Customer> {
     const headers = this.getHeaders();
-    return this.http.get<Customer>(`${this.APIBaseUrl}/customers/${id}`, { headers });
+    return this.http.get<Customer>(`${this.APIBaseUrl}customers/${id}`, { headers });
   }
 
   updateCustomer(customer: Customer): Observable<{ status: boolean, message: string }> {
