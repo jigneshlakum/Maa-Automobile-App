@@ -1,0 +1,117 @@
+.container {
+    display: flex;
+    gap: 20px; /* Optional: Adds space between columns */
+    padding: 0 !important;
+}
+
+.column {
+    flex: 1;
+    /* padding: 20px; */
+}
+
+/* Optional: Media query to stack columns on smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+
+.CoupletBox{
+    height: 150px;
+}
+
+
+ul.select {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.select_label {
+    display: block;
+    padding: 10px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.select_label-placeholder {
+    color: #999;
+}
+
+.select_label:hover {
+    background: #e0e0e0;
+}
+
+.select_items {
+    position: relative;
+}
+
+.select_items input[type="radio"] {
+    display: none;
+}
+
+.select_expandLabel:before {
+    content: '▼';
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 0.3s;
+}
+
+.select_options {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.select_items input[type="radio"]:checked + .select_expandLabel + .select_options {
+    display: block;
+}
+
+.select_option {
+    margin: 0;
+}
+
+.select_option label {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.select_option label:hover {
+    background: #f9f9f9;
+}
+
+.select_option label:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+
+    .select_label,
+    .select_option label {
+        padding: 8px;
+    }
+}
+

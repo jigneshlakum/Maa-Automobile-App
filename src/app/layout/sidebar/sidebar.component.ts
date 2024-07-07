@@ -30,4 +30,10 @@ export class SidebarComponent {
     this._isOpen1 = false;
     this._isOpenEmpManagament = !this._isOpenEmpManagament;
   }
+
+  closeSidebar() {
+    this.isExpanded = false;
+    this.toggleSidebarEvent.emit();
+  }
+
 }

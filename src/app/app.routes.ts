@@ -14,11 +14,15 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'user', component: UserComponent },
       {
-        path: 'customers',  // Prefix for customers routes
-        title : 'Customers',
+        path: 'customers',
+        title: 'Customers',
         loadChildren: () => import('./Components/Customers/customers.module').then(m => m.CustomersModule)
+      },
+      {
+        path: 'booking',
+        title: 'Booking-Car',
+        loadChildren: () => import('./Components/booking-car/booking-car.module').then(m => m.BookingCarModule)
       },
     ],
   },

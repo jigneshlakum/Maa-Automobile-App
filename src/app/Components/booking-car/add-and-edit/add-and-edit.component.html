@@ -1,0 +1,151 @@
+@if(loading$){
+<div class="topbar-progress"></div>
+}
+
+<div class="page__inner">
+    <div class="page__container">
+        <div class="create">
+            <div class="create__card card">
+                <div class="card__head">
+                    <div class="title-green card__title">{{ _pageTitle }}</div>
+                    <a class="button-stroke button-small card__button" routerLink="/booking">
+                        <svg class="icon icon-arrow-left">
+                            <use xlink:href="#icon-arrow-left"></use>
+                        </svg>
+                        <span>Back</span>
+                    </a>
+                </div>
+                <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+                    <!-- Form Fields -->
+
+                    <div class="field fieldmargin">
+                        <div class="field__label">Customer</div>
+                        <div class="field__wrap">
+                            <!-- <ng-select class="employeeNgSelectClass" [items]="options" bindLabel="Name"
+                                placeholder="Select Employee" [searchable]="false">
+                            </ng-select> -->
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="column">
+                            <div class="field fieldmargin"
+                                [class.error]="bookingForm.get('start_date')?.touched && bookingForm.get('start_date')?.invalid">
+                                <div class="field__label">Start Date</div>
+                                <div class="field__wrap">
+                                    <input class="field__input uppercase" type="date" formControlName="start_date"
+                                        placeholder="Start Date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field fieldmargin"
+                                [class.error]="bookingForm.get('end_date')?.touched && bookingForm.get('end_date')?.invalid">
+                                <div class="field__label">End Date</div>
+                                <div class="field__wrap">
+                                    <input class="field__input uppercase" type="date" formControlName="end_date"
+                                        placeholder="End Date">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="column">
+                            <div class="field fieldmargin"
+                                [class.error]="bookingForm.get('advance_payment')?.touched && bookingForm.get('advance_payment')?.invalid">
+                                <div class="field__label">Advance Payment</div>
+                                <div class="field__wrap">
+                                    <input class="field__input" type="number" formControlName="advance_payment"
+                                        placeholder="Advance Payment">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field fieldmargin">
+                                <div class="field__label">Status</div>
+                                <div class="field__wrap">
+                                    <select class="select" formControlName="status">
+                                        <option value="Progressing">Progressing</option>
+                                        <option value="Padding">Padding</option>
+                                        <option value="Hold">Hold</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="column">
+                            <div class="field fieldmargin"
+                                [class.error]="bookingForm.get('kilometres')?.touched && bookingForm.get('kilometres')?.invalid">
+                                <div class="field__label">Kilometres</div>
+                                <div class="field__wrap">
+                                    <input class="field__input" type="number" formControlName="kilometres"
+                                        placeholder="Kilometres">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field fieldmargin"
+                                [class.error]="bookingForm.get('mileage')?.touched && bookingForm.get('mileage')?.invalid">
+                                <div class="field__label">Mileage</div>
+                                <div class="field__wrap">
+                                    <input class="field__input uppercase" type="text" formControlName="mileage"
+                                        placeholder="Mileage">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field fieldmargin">
+                        <div class="field__label">Complaint</div>
+                        <div class="field__wrap">
+                            <textarea class="field__input CoupletBox" type="text" formControlName="issue"
+                                placeholder="Type issue..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field fieldmargin">
+                        <div class="field__label">Additional Requirements</div>
+                        <div class="field__wrap">
+                            <textarea class="field__input CoupletBox" type="text"
+                                formControlName="additional_requirements"
+                                placeholder="Type Additional Requirements..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field fieldmargin">
+                        <div class="create__label">Services</div>
+                        <div class="field fieldmargin">
+                            <div *ngFor="let item of serviceItems; let index = index; trackBy: trackByIndex"
+                                class="field__wrap" style="display: flex; margin-top: 5px;">
+                                <input class="field__input" type="text" [value]="item.serviceName"
+                                    (input)="onServiceChange(index, $event)">
+                                <span style="margin-left: 5px;" (click)="removeService(index)">
+                                    <svg class="icon icon-trash">
+                                        <use xlink:href="#icon-trash"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <svg class="icon icon-add" (click)="addService()">
+                                <use xlink:href="#icon-plus"></use>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="filters__btns">
+                        <a class="button-stroke panel__button answer__button" routerLink="/booking">Cancel</a>
+                        <button *ngIf="!_btnLoading" class="button panel__button">
+                            <span>{{ _label }}</span>
+                        </button>
+                        <button *ngIf="_btnLoading" class="button panel__button" disabled>
+                            Please wait... <i class="fa fa-refresh fa-spin"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

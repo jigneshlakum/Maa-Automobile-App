@@ -32,7 +32,7 @@ export class AddComponent implements OnInit {
     brandName: ['', [Validators.required]],
     modelName: ['', [Validators.required]],
     fullAddress: [''],
-    carService: [''],
+    // carService: [''],
     createdAt: [new Date().toISOString()]
   });
 
@@ -87,7 +87,7 @@ export class AddComponent implements OnInit {
           brandName: customer.brandName,
           modelName: customer.modelName,
           fullAddress: customer.fullAddress,
-          carService: customer.carService,
+          // carService: customer.carService,
         });
         this.loading$ = false
       }

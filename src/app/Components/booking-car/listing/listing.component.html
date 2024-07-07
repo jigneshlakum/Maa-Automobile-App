@@ -1,0 +1,96 @@
+@if(loading$){
+<div class="topbar-progress"></div>
+}
+
+
+<div class="page__inner">
+    <div class="page__container">
+        <div class="customer card">
+            <div class="card__head">
+                <div class="title-purple card__title">{{_pageTitle}}</div>
+                <form class="form">
+                    <input class="form__input" type="date" name="search" [(value)]="_searchTerm"
+                        placeholder="Customber Name.." required="required" autocomplete="off"
+                        (input)="onSearch($event)" />
+                    <button class="form__button">
+                        <svg class="icon icon-search">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                    </button>
+                </form>
+                <div class="" style="display: flex; gap: 7px;">
+                    <button class="button filters__button Download_Excel"><span>⌘ Download Excel</span></button>
+                    <button routerLink="/booking/add" class="button filters__button">
+                        <svg class="icon icon-add">
+                            <use xlink:href="#icon-plus"></use>
+                        </svg><span>Create</span></button>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="payout">
+                    <div class="payout__wrapper table-responsive">
+                        <div class="payout__table ">
+                            <div class="payout__row">
+                                <div class="payout__col">Customber Name</div>
+                                <div class="payout__col">Start Date</div>
+                                <div class="payout__col">End date</div>
+                                <div class="payout__col">Kilometres</div>
+                                <div class="payout__col">Mileage</div>
+                                <div class="payout__col">Advance Payment</div>
+                                <div class="payout__col">Status</div>
+                                <div class="payout__col">Action</div>
+                            </div>
+                            @for (item of _displayedItems; track $index) {
+                            <div class="payout__row">
+                                <div class="payout__col">{{item.customerName}}</div>
+                                <div class="payout__col">{{item.createdAt}}</div>
+                                <div class="payout__col">24/07/2024</div>
+                                <div class="payout__col">1240 km</div>
+                                <div class="payout__col">2352</div>
+                                <div class="payout__col">1000 /-</div>
+                                <div class="payout__col">Hold</div>
+                                <div class="payout__col">
+                                    <div class="actions" [class.active]="_actionsVisibility[$index]">
+                                        <button class="actions__button" (click)="toggleActionsVisibility($index)">
+                                            <svg class="icon icon-more-horizontal">
+                                                <use xlink:href="#icon-more-horizontal"></use>
+                                            </svg>
+                                        </button>
+                                        <div class="actions__body">
+                                            <button class="actions__option" (click)="navigateToRoute(item)">
+                                                <svg class="icon icon-edit">
+                                                    <use xlink:href="#icon-edit"></use>
+                                                </svg>Edit Customer
+                                            </button>
+                                            <button class="actions__option" (click)="toggleDeleteDialog(item)">
+                                                <svg class="icon icon-trash">
+                                                    <use xlink:href="#icon-trash"></use>
+                                                </svg>Delete Customer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            } @empty{
+                            <div id="message-not-found">Data not found</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (_displayedItems.length > 0) {
+            <div class="filters__btns">
+                <button class="button filters__button" (click)="previousPage()">Previous</button>
+                <button class="button filters__button" (click)="nextPage()">Next</button>
+            </div>
+            }
+            <!-- here -->
+        </div>
+    </div>
+
+
+    <!-- delete dialog -->
+    <app-delete-dialog [addclass]="_showDeleteDialog" (toggleDeleteDialog)="toggleDeleteDialog(0)"
+        (delete)="delete()" />
