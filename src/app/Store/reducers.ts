@@ -5,6 +5,7 @@ import { employeeGroupReducer } from './EmployeeMaster/employees-group.reducer';
 import { menuReducer } from './SidebarAction/sidebar.reducer';
 import { employeeReducer } from './Employee/employees.reducer';
 import { customerReducer } from './CustomerAction/customer.reducer';
+import { bookingReducer } from './Car-Booking/car-booking.reducer';
 
 export interface AppState {
   auth: any;
@@ -18,6 +19,7 @@ export const reducers: ActionReducerMap<any> = {
   employeeGroup : employeeGroupReducer,
   menu : menuReducer,
   employeeItems : employeeReducer,
-  customers:customerReducer
+  customers:customerReducer,
+  bookings : bookingReducer
   // add more reducers here
 };

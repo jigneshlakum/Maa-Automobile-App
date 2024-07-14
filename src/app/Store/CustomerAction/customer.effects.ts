@@ -40,12 +40,14 @@ export class CustomerEffects {
               return CustomerActions.saveCustomerSuccess({ message: response.message });
             } else {
               this.toastr$.error(response.message,"Error");
+              this.router$.navigate(['/customers']);
               return CustomerActions.saveCustomerFailure({ error: response.message });
             }
           }),
           catchError(error => {
-            this.toastr$.error(error.message,"Error");
-            return of(CustomerActions.saveCustomerFailure({ error: error.message }));
+            this.toastr$.error(error.error.message,"Error");
+            this.router$.navigate(['/customers']);
+            return of(CustomerActions.saveCustomerFailure({ error: error.error.message }));
           })
         )
       )
@@ -100,11 +102,13 @@ export class CustomerEffects {
               return CustomerActions.updateCustomerSuccess({ message: response.message });
             } else {
               this.toastr$.error(response.message,"Error");
+              this.router$.navigate(['/customers']);
               return CustomerActions.updateCustomerFailure({ error: response.message });
             }
           }),
           catchError(error => {
             this.toastr$.error(error.message,"Error");
+            this.router$.navigate(['/customers']);
             return of(CustomerActions.updateCustomerFailure({ error: error.message }));
           })
         )

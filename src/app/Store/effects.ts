@@ -1,5 +1,6 @@
 // import more effects here if needed
 
+import { BookingEffects } from "./Car-Booking/car-booking.effects";
 import { CommissionEffects } from "./CommissionAction/Commission.Effects";
 import { CustomerEffects } from "./CustomerAction/customer.effects";
 import { EmployeeEffects } from "./Employee/employees.effects";
@@ -14,6 +15,7 @@ export const effects = [
   MenuEffects,
   EmployeeEffects,
   CustomerEffects,
+  BookingEffects,
 
   // add more effects here
 ];

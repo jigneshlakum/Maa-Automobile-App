@@ -80,7 +80,7 @@ export class ListingComponent implements OnInit {
     this._displayedItems = filteredList.slice(startIndex, endIndex).map((item) => {
       return {
         ...item,
-        createdAt: this.datePipe.transform(item.createdAt, 'EEEE, MMMM d, y')
+        createdAt: this.datePipe.transform(item.createdAt, 'MMMM d, y')
       };
     });
     

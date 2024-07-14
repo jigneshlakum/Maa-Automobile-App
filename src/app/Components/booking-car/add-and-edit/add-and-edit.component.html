@@ -20,11 +20,9 @@
 
                     <div class="field fieldmargin">
                         <div class="field__label">Customer</div>
-                        <div class="field__wrap">
-                            <!-- <ng-select class="employeeNgSelectClass" [items]="options" bindLabel="Name"
-                                placeholder="Select Employee" [searchable]="false">
-                            </ng-select> -->
-                        </div>
+                        <ng-select class="custom-select custom-ng-select" [items]="customers$" bindLabel="name"
+                            bindValue="id" formControlName="customerId" placeholder="Select Customer">
+                        </ng-select>
                     </div>
 
                     <div class="container">
@@ -65,12 +63,9 @@
                             <div class="field fieldmargin">
                                 <div class="field__label">Status</div>
                                 <div class="field__wrap">
-                                    <select class="select" formControlName="status">
-                                        <option value="Progressing">Progressing</option>
-                                        <option value="Padding">Padding</option>
-                                        <option value="Hold">Hold</option>
-                                        <option value="Completed">Completed</option>
-                                    </select>
+                                    <ng-select class="custom-select custom-ng-select" [items]="statusData"
+                                        bindLabel="name" formControlName="status" bindValue="id" placeholder="Select Staus">
+                                    </ng-select>
                                 </div>
                             </div>
                         </div>
@@ -118,22 +113,63 @@
 
                     <div class="field fieldmargin">
                         <div class="create__label">Services</div>
-                        <div class="field fieldmargin">
-                            <div *ngFor="let item of serviceItems; let index = index; trackBy: trackByIndex"
-                                class="field__wrap" style="display: flex; margin-top: 5px;">
-                                <input class="field__input" type="text" [value]="item.serviceName"
-                                    (input)="onServiceChange(index, $event)">
-                                <span style="margin-left: 5px;" (click)="removeService(index)">
-                                    <svg class="icon icon-trash">
-                                        <use xlink:href="#icon-trash"></use>
-                                    </svg>
-                                </span>
+                        <div class="field__wrap" style=" margin-top: 5px;">
+                            <div class="container2 card"
+                                *ngFor="let item of serviceItems; let index = index; trackBy: trackByIndex">
+                                <div class="column2">
+                                    <div class="field fieldmargin">
+                                        <div class="field__wrap">
+                                            <input class="field__input" type="text" [value]="item.serviceName" placeholder="Name"
+                                                (input)="onServiceChange(index, $event)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column2">
+                                    <div class="field fieldmargin">
+                                        <div class="field__wrap">
+                                            <input class="field__input" type="number" [value]="item.qty" placeholder="Qty"
+                                                (input)="onServiceQtyChange(index, $event)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column2">
+                                    <div class="field fieldmargin">
+                                        <div class="field__wrap">
+                                            <input class="field__input" type="number" [value]="item.servicePrice" placeholder="Price"
+                                                (input)="onServicePriceChange(index, $event)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column2">
+                                    <div class="field fieldmargin">
+                                        <div class="field__wrap">
+                                            <input disabled class="field__input" type="text" [value]="item.total" placeholder="Total" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column2 column-small">
+                                    <div class="field fieldmargin">
+                                        <span (click)="removeService(index)">
+                                            <svg class="icon icon-trash">
+                                                <use xlink:href="#icon-trash"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <svg class="icon icon-add" (click)="addService()">
-                                <use xlink:href="#icon-plus"></use>
-                            </svg>
                         </div>
                     </div>
+
+                    <a class="button-stroke panel__button answer__button" style="margin-left: 40px;"
+                        (click)="addService()">
+                        <svg class="icon icon-add">
+                            <use xlink:href="#icon-plus"></use>
+                        </svg> Add New service
+                    </a>
 
                     <div class="filters__btns">
                         <a class="button-stroke panel__button answer__button" routerLink="/booking">Cancel</a>

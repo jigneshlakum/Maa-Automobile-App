@@ -1,14 +1,16 @@
-// carBooking.model.ts
-
 export interface CarBooking {
-  id: string; // Use MongoDB ObjectId for id
-  start_date: Date; // Assuming dates as strings for simplicity
-  end_date: Date;
+  id: string;
+  customerId: {
+    _id: string;
+    customerName: string;
+  };
+  start_date: string | null;
+  end_date: string | null;
   advance_payment: number;
   status: string;
   kilometres: number;
   mileage: string;
   issue: string;
   additional_requirements: string;
-  services: string[]; // Array of selected services
+  services: any[];
 }

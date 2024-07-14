@@ -117,3 +117,61 @@ body { margin: 0; }
 
 
 
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.actionsBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.actionsBtn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .action-buttons {
+      gap: 4px;
+  }
+
+  .actionsBtn {
+      padding: 6px;
+  }
+
+  .icon {
+      width: 20px;
+      height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-buttons {
+      gap: 10px;
+  }
+
+  .actionsBtn {
+      padding: 4px;
+  }
+
+  .icon {
+      width: 16px;
+      height: 16px;
+  }
+}
+

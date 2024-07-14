@@ -32,7 +32,6 @@ export class AddComponent implements OnInit {
     brandName: ['', [Validators.required]],
     modelName: ['', [Validators.required]],
     fullAddress: [''],
-    // carService: [''],
     createdAt: [new Date().toISOString()]
   });
 

@@ -115,3 +115,37 @@ li {
     }
 }
 
+
+
+.container2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column2 {
+    flex: 1; /* Make columns take equal space */
+    padding: 0 10px;
+}
+
+.column-small {
+    flex: 0 0 50px; /* Adjust this value to make the last column smaller */
+    text-align: center; /* Center the content in the smaller column */
+    /* width: 300px; */
+}
+
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .container2 {
+        flex-direction: column;
+    }
+    .column-small{
+        width: auto;
+    }
+}
+
+@media (max-width: 375px) {
+    .container2 {
+        flex-direction: column;
+    }
+}
