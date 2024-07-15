@@ -66,8 +66,8 @@ export class ListingComponent implements OnInit {
     this._displayedItems = this.carBooking$.slice(startIndex, endIndex).map((item) => {
       return {
         ...item,
-        start_date: this.datePipe.transform(item.start_date, 'd-MMMM-y'),
-        end_date: this.datePipe.transform(item.end_date, 'd-MMMM-y')
+        // start_date: this.datePipe.transform(item.start_date, 'd-MMMM-y'),
+        // end_date: this.datePipe.transform(item.end_date, 'd-MMMM-y')
       } as CarBooking;
     });
   }
@@ -107,8 +107,8 @@ export class ListingComponent implements OnInit {
   }
 
   clearDate(): void {
-    const payload = { selectedDate: null }
-    this._store.dispatch(BookingActions.loadData(payload));
+    // const payload = { selectedDate: null }
+    // this._store.dispatch(BookingActions.loadData(payload));
   }
 
   navigateToRoute(item: any): void {
