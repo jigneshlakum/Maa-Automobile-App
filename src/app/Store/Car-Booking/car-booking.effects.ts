@@ -19,8 +19,8 @@ export class BookingEffects {
   loadAllData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookingActions.loadData),
-      mergeMap(() =>
-        this.bookingService.getAll().pipe(
+      mergeMap(({ selectedDate }) =>
+        this.bookingService.getAll(selectedDate).pipe(
           map(response => {
             if (response.status) {
               return BookingActions.loadDataSuccess({ bookings: response.data });
@@ -33,6 +33,7 @@ export class BookingEffects {
       )
     )
   );
+
 
   saveData$ = createEffect(() =>
     this.actions$.pipe(
@@ -78,7 +79,7 @@ export class BookingEffects {
           })
         )
       ),
-      switchMap(() => [BookingActions.loadData()])
+      switchMap(() => [BookingActions.loadData({ selectedDate: null })])
     )
   );
 

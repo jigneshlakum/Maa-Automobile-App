@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { CarBooking } from '../../Shared/Models/car-booking.model';
 
-export const loadData = createAction('[Booking] Load Bookings');
+
+export const loadData = createAction('[Booking] Load Bookings', props<{ selectedDate: string | null }>());
 export const loadDataSuccess = createAction('[Booking] Load Bookings Success', props<{ bookings: CarBooking[] }>());
 export const loadDataFailure = createAction('[Booking] Load Bookings Failure', props<{ error: string }>());
 

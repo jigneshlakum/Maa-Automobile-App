@@ -24,12 +24,12 @@ export class BookingService {
       'Authorization': token ? token : ''
     });
   }
-  
-  
-  
-  getAll(): Observable<{ status: boolean, data: CarBooking[], message: string }> {
+
+
+
+  getAll(selectedDate: string | null): Observable<{ status: boolean, data: CarBooking[], message: string }> {
     const headers = this.getHeaders();
-    return this.http.get<{ status: boolean, data: CarBooking[], message: string }>(`${this.APIBaseUrl}booking`, { headers });
+    return this.http.post<{ status: boolean, data: CarBooking[], message: string }>(`${this.APIBaseUrl}getbooking`, {selectedDate}, { headers });
   }
 
   saveData(items: CarBooking): Observable<{ status: boolean, message: string }> {
@@ -49,6 +49,6 @@ export class BookingService {
 
   updateData(customer: CarBooking): Observable<{ status: boolean, message: string }> {
     const headers = this.getHeaders();
-    return this.http.put<{ status: boolean, message: string }>(`${this.APIBaseUrl}booking`, customer, { headers });
+    return this.http.post<{ status: boolean, message: string }>(`${this.APIBaseUrl}bookingUpdate`, customer, { headers });
   }
 }

@@ -1,24 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { DeleteDialogComponent } from '../../CommonComponent/Dialog/delete-dialog/delete-dialog.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Customer } from '../../../Shared/Models/Customer.model';
 import { Store } from '@ngrx/store';
-import { CustomerState } from '../../../Store/CustomerAction/customer.reducer';
 import { CommonModule, DatePipe } from '@angular/common';
 import * as BookingActions from '../../../Store/Car-Booking/car-booking.actions';
-import { selectAllCustomers, selectLoading } from '../../../Store/CustomerAction/customer.selectors';
+import { selectAllBookings, selectLoading } from '../../../Store/Car-Booking/car-booking.selectors';
 import { CarBooking } from '../../../Shared/Models/car-booking.model';
 import { BookingState } from '../../../Store/Car-Booking/car-booking.reducer';
-import { selectAllBookings } from '../../../Store/Car-Booking/car-booking.selectors';
-declare var $: any; // Declare jQuery
-
 
 @Component({
   selector: 'app-listing',
   standalone: true,
   imports: [RouterLink, DeleteDialogComponent, CommonModule],
   templateUrl: './listing.component.html',
-  styleUrl: './listing.component.css',
+  styleUrls: ['./listing.component.css'],
   providers: [DatePipe]
 })
 export class ListingComponent implements OnInit {
@@ -27,14 +22,14 @@ export class ListingComponent implements OnInit {
   loading$: boolean = false;
 
   _isLoading: boolean = false;
-  _showDeleteDialog: boolean = false; // open delete dialog
+  _showDeleteDialog: boolean = false;
   _ids: string | null = null;
-  _actionsVisibility: boolean[] = [];  // used Action button
+  _actionsVisibility: boolean[] = [];
 
-  _searchTerm: string = ''; // ---------------- paginator
-  _currentPage: number = 1; // ---------------- paginator
-  _itemsPerPage: number = 5; // ---------------- paginator
-  _displayedItems: CarBooking[] = []; // ---------------- paginator html component display valuse
+  _currentPage: number = 1;
+  _itemsPerPage: number = 5;
+  _displayedItems: CarBooking[] = [];
+  selectedDate: string | null = null;
 
 
   constructor(
@@ -43,59 +38,38 @@ export class ListingComponent implements OnInit {
     private router$: Router,
     private activateroute$: ActivatedRoute
   ) {
-
     this._store.select(selectLoading).subscribe((item) => {
       this.loading$ = item;
     });
-
   }
-
-
 
   ngOnInit(): void {
+    const payload = { selectedDate: this.selectedDate }
     this._pageTitle = this.activateroute$.snapshot.data['title'];
-    this._store.dispatch(BookingActions.loadData());
+    this._store.dispatch(BookingActions.loadData(payload));
     this._store.select(selectAllBookings).subscribe((item) => {
-      if (item && item.length > 0) {
-        this.carBooking$ = item;
-        this.updateDisplayedData(); // ---------------- paginator
-      }
+      // if (item && item.length > 0) {
+      console.log(item);
+      this.carBooking$ = item;
+      this.updateDisplayedData();
+      // }
     });
-
   }
 
-  // Action
   toggleActionsVisibility(index: number): void {
     this._actionsVisibility[index] = !this._actionsVisibility[index];
   }
 
-  // ---------------- paginator start
   updateDisplayedData(): void {
-    const filteredList = this.carBooking$.filter(
-      (data) =>
-        data.customerId.customerName.toLowerCase().includes(this._searchTerm.toLowerCase())
-    );
-
     const startIndex = (this._currentPage - 1) * this._itemsPerPage;
-    const endIndex = Math.min(
-      startIndex + this._itemsPerPage,
-      filteredList.length
-    );
-
-    this._displayedItems = filteredList?.slice(startIndex, endIndex).map((item) => {
+    const endIndex = Math.min(startIndex + this._itemsPerPage, this.carBooking$.length);
+    this._displayedItems = this.carBooking$.slice(startIndex, endIndex).map((item) => {
       return {
         ...item,
-        start_date: this.datePipe.transform(item.start_date, 'MMMM d, y'),
-        end_date: this.datePipe.transform(item.end_date, 'MMMM d, y')
+        start_date: this.datePipe.transform(item.start_date, 'd-MMMM-y'),
+        end_date: this.datePipe.transform(item.end_date, 'd-MMMM-y')
       } as CarBooking;
     });
-
-  }
-
-  onSearch(event: any): void {
-    this._searchTerm = event.target.value;
-    this._currentPage = 1;
-    this.updateDisplayedData();
   }
 
   previousPage(): void {
@@ -113,16 +87,11 @@ export class ListingComponent implements OnInit {
     }
   }
 
-  // ---------------- paginator end
-
-  toggleDeleteDialog(item: any) {
+  toggleDeleteDialog(item: any): void {
     this._ids = item._id;
     this._showDeleteDialog = !this._showDeleteDialog;
-    this._actionsVisibility = new Array(this.carBooking$.length).fill(
-      false
-    );
+    this._actionsVisibility = new Array(this.carBooking$.length).fill(false);
   }
-
 
   delete(): void {
     if (this._ids !== null) {
@@ -131,12 +100,18 @@ export class ListingComponent implements OnInit {
     }
   }
 
-
-  // Route
-  navigateToRoute(item: any) {
-    this.router$.navigate(['/booking/edit'], { queryParams: { id: item._id } });
+  onDateSelect(event: any): void {
+    const payload = { selectedDate: this.datePipe.transform(event.target.value, 'dd-MM-yyyy') }
+    this.updateDisplayedData();
+    this._store.dispatch(BookingActions.loadData(payload));
   }
 
+  clearDate(): void {
+    const payload = { selectedDate: null }
+    this._store.dispatch(BookingActions.loadData(payload));
+  }
 
+  navigateToRoute(item: any): void {
+    this.router$.navigate(['/booking/edit'], { queryParams: { id: item._id } });
+  }
 }
-

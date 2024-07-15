@@ -16,9 +16,8 @@
                     </a>
                 </div>
                 <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-                    <!-- Form Fields -->
-
-                    <div class="field fieldmargin">
+                    <div class="field fieldmargin"
+                        [class.error]="bookingForm.get('customerId')?.touched && bookingForm.get('customerId')?.invalid">
                         <div class="field__label">Customer</div>
                         <ng-select class="custom-select custom-ng-select" [items]="customers$" bindLabel="name"
                             bindValue="id" formControlName="customerId" placeholder="Select Customer">
@@ -38,34 +37,11 @@
                         </div>
                         <div class="column">
                             <div class="field fieldmargin"
-                                [class.error]="bookingForm.get('end_date')?.touched && bookingForm.get('end_date')?.invalid">
-                                <div class="field__label">End Date</div>
-                                <div class="field__wrap">
-                                    <input class="field__input uppercase" type="date" formControlName="end_date"
-                                        placeholder="End Date">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container">
-                        <div class="column">
-                            <div class="field fieldmargin"
                                 [class.error]="bookingForm.get('advance_payment')?.touched && bookingForm.get('advance_payment')?.invalid">
                                 <div class="field__label">Advance Payment</div>
                                 <div class="field__wrap">
                                     <input class="field__input" type="number" formControlName="advance_payment"
                                         placeholder="Advance Payment">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="field fieldmargin">
-                                <div class="field__label">Status</div>
-                                <div class="field__wrap">
-                                    <ng-select class="custom-select custom-ng-select" [items]="statusData"
-                                        bindLabel="name" formControlName="status" bindValue="id" placeholder="Select Staus">
-                                    </ng-select>
                                 </div>
                             </div>
                         </div>
@@ -83,12 +59,13 @@
                             </div>
                         </div>
                         <div class="column">
-                            <div class="field fieldmargin"
-                                [class.error]="bookingForm.get('mileage')?.touched && bookingForm.get('mileage')?.invalid">
-                                <div class="field__label">Mileage</div>
+                            <div class="field fieldmargin">
+                                <div class="field__label">Status</div>
                                 <div class="field__wrap">
-                                    <input class="field__input uppercase" type="text" formControlName="mileage"
-                                        placeholder="Mileage">
+                                    <ng-select class="custom-select custom-ng-select" [items]="statusData"
+                                        bindLabel="name" formControlName="status" bindValue="id"
+                                        placeholder="Select Staus">
+                                    </ng-select>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +89,126 @@
                     </div>
 
                     <div class="field fieldmargin">
+                        <div class="create__label">Services</div>
+
+                        <div class="container">
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input uppercase" type="text" formControlName="washing"
+                                            placeholder="washing">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input" type="number" formControlName="washingPrice"
+                                            placeholder="Washing Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input uppercase" type="text"
+                                            formControlName="dentingPainting" placeholder="Denting&painting">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input" type="number" formControlName="dentingPaintingPrice"
+                                            placeholder="Denting & painting Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input uppercase" type="text" formControlName="acwork"
+                                            placeholder="Ac work">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input" type="number" formControlName="acworkPrice"
+                                            placeholder="Ac work Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input uppercase" type="text" formControlName="electricwork"
+                                            placeholder="Electric Work">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input" type="number" formControlName="electricworkPrice"
+                                            placeholder="Electric work Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input uppercase" type="text" formControlName="brackdown"
+                                            placeholder="Brackdown">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input" type="number" formControlName="brackdownPrice"
+                                            placeholder="Brackdown Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input uppercase" type="text" formControlName="rr"
+                                            placeholder="RR">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field fieldmargin">
+                                    <div class="field__wrap">
+                                        <input class="field__input" type="number" formControlName="rrPrice"
+                                            placeholder="RR Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- <div class="field fieldmargin">
                         <div class="create__label">Services</div>
                         <div class="field__wrap" style=" margin-top: 5px;">
                             <div class="container2 card"
@@ -169,7 +266,7 @@
                         <svg class="icon icon-add">
                             <use xlink:href="#icon-plus"></use>
                         </svg> Add New service
-                    </a>
+                    </a> -->
 
                     <div class="filters__btns">
                         <a class="button-stroke panel__button answer__button" routerLink="/booking">Cancel</a>

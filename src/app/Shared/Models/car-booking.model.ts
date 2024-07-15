@@ -1,3 +1,10 @@
+// model.ts
+
+export interface Service {
+  serviceType: string;
+  price: number;
+}
+
 export interface CarBooking {
   id: string;
   customerId: {
@@ -9,8 +16,7 @@ export interface CarBooking {
   advance_payment: number;
   status: string;
   kilometres: number;
-  mileage: string;
   issue: string;
   additional_requirements: string;
-  services: any[];
+  services: Service[];
 }

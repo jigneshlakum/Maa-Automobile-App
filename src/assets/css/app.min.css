@@ -4170,6 +4170,11 @@ body.dark .status-red {
   color: #8e59ff;
 }
 
+.status-purple-dark {
+  background: #6a5acd; 
+  color: #ffffff;
+}
+
 .status-blue {
   background: #b1e5fc;
   color: #2a85ff;

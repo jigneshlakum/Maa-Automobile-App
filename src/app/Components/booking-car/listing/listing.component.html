@@ -8,16 +8,15 @@
         <div class="customer card">
             <div class="card__head">
                 <div class="title-purple card__title">{{_pageTitle}}</div>
-                <form class="form">
-                    <input class="form__input" type="text" name="search" [(value)]="_searchTerm"
-                        placeholder="Customber Name.." required="required" autocomplete="off"
-                        (input)="onSearch($event)" />
-                    <button class="form__button">
+                <div class="form">
+                    <input class="form__input" type="date" name="search" placeholder="Select Date.."
+                        autocomplete="off" (change)="onDateSelect($event)" />
+                    <button type="button" class="form__button" (click)="clearDate()">
                         <svg class="icon icon-search">
                             <use xlink:href="#icon-search"></use>
                         </svg>
                     </button>
-                </form>
+                </div>
                 <div class="" style="display: flex; gap: 7px;">
                     <button class="button filters__button Download_Excel"><span>⌘ Download Excel</span></button>
                     <button routerLink="/booking/add" class="button filters__button">
@@ -27,7 +26,6 @@
                 </div>
             </div>
 
-
             <div class="card">
                 <div class="payout">
                     <div class="payout__wrapper table-responsive">
@@ -36,8 +34,6 @@
                                 <div class="payout__col">Customber Name</div>
                                 <div class="payout__col">Start Date</div>
                                 <div class="payout__col">End date</div>
-                                <!-- <div class="payout__col">Kilometres</div> -->
-                                <!-- <div class="payout__col">Mileage</div> -->
                                 <div class="payout__col">Advance Payment</div>
                                 <div class="payout__col">Status</div>
                                 <div class="payout__col">Action</div>
@@ -47,17 +43,22 @@
                                 <div class="payout__col">{{item.customerId.customerName}}</div>
                                 <div class="payout__col">{{item.start_date}}</div>
                                 <div class="payout__col">{{item.end_date}}</div>
-                                <!-- <div class="payout__col">{{item.kilometres}}</div> -->
-                                <!-- <div class="payout__col">{{item.mileage}}</div> -->
                                 <div class="payout__col">{{item.advance_payment}}</div>
-                                <div class="payout__col">{{item.status}}</div>
                                 <div class="payout__col">
-                                    <!-- <div class="actions" [class.active]="_actionsVisibility[$index]">
-                                        <button class="actions__button" (click)="toggleActionsVisibility($index)">
-                                            <svg class="icon icon-more-horizontal">
-                                                <use xlink:href="#icon-more-horizontal"></use>
-                                            </svg>
-                                        </button> -->
+                                    @if(item.status === "completed"){
+                                    <div class="status-green-dark payout__status">Completed</div>
+                                    }
+                                    @if(item.status === "progressing"){
+                                    <div class="status-red-dark payout__status">Progressing</div>
+                                    }
+                                    @if(item.status === "pending"){
+                                    <div class="status-purple help__status">Pending</div>
+                                    }
+                                    @if(item.status === "hold"){
+                                    <div class="status-purple-dark help__status">Hold</div>
+                                    }
+                                </div>
+                                <div class="payout__col">
                                     <div class="action-buttons">
                                         <button class="actionsBtn" (click)="navigateToRoute(item)">
                                             <svg class="icon icon-edit">
@@ -70,8 +71,6 @@
                                             </svg>
                                         </button>
                                     </div>
-
-                                    <!-- </div> -->
                                 </div>
                             </div>
                             } @empty{
