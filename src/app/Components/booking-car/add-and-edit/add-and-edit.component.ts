@@ -12,6 +12,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { map } from 'rxjs';
 import { statusData } from '../../../Middleware/status-data';
 import { selectBooking } from '../../../Store/Car-Booking/car-booking.selectors';
+import { TosterService } from '../../../helperService/Toster/toster.service';
 declare var $: any;
 
 
@@ -30,32 +31,24 @@ export class AddAndEditComponent implements OnInit {
   _label = '';
   _pageTitle = '';
   bookingId: string | null = null;
-  // serviceItems = [{ value: 1, serviceName: '', qty: "", servicePrice: "", total: "" }];
   statusData = statusData;
 
   bookingForm: FormGroup = this.fb.group({
     id: [''],
     customerId: ['', Validators.required],
-    start_date: ['', new Date(), Validators.required],
+    start_date: ['', Validators.required],
     end_date: [{ value: '', disabled: true }],
-    washing: [{ value: 'Washing', disabled: true }],
-    washingPrice: [0, Validators.min(0)],
-    dentingPainting: [{ value: 'Denting & painting', disabled: true }],
-    dentingPaintingPrice: [0, Validators.min(0)],
-    acwork: [{ value: 'Ac work', disabled: true }],
-    acworkPrice: [0, Validators.min(0)],
-    electricwork: [{ value: 'Electricwork', disabled: true }],
-    electricworkPrice: [0, Validators.min(0)],
-    brackdown: [{ value: 'Brackdown', disabled: true }],
-    brackdownPrice: [0, Validators.min(0)],
-    rr: [{ value: 'RR', disabled: true }],
-    rrPrice: [0, Validators.min(0)],
     advance_payment: [0, Validators.min(0)],
     status: ['', Validators.required],
     kilometres: [, Validators.required],
     issue: ['', Validators.required],
     additional_requirements: [''],
-    services: [],
+    washing: [false],
+    dentingPainting: [false],
+    acwork: [false],
+    electricwork: [false],
+    brackdown: [false],
+    rr: [false]
   });
 
 
@@ -63,7 +56,8 @@ export class AddAndEditComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store,
     private activateroute$: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private toster: TosterService
   ) { }
 
 
@@ -81,7 +75,7 @@ export class AddAndEditComponent implements OnInit {
       this.customers$ = formattedCustomers;
     });
 
-    // // edit
+    // Edit
     this.activateroute$.queryParams.subscribe(params => {
       this.bookingId = params['id'];
       if (this.bookingId) {
@@ -98,119 +92,68 @@ export class AddAndEditComponent implements OnInit {
     this.store.select(selectBooking).subscribe((state: any) => {
       const booking = state?.data;
       if (booking) {
+        const formattedStartDate = this.datePipe.transform(booking.start_date, 'yyyy-MM-dd');
         this.bookingForm.patchValue({
           id: booking._id,
           customerId: booking.customerId,
-          start_date: this.datePipe.transform(booking.start_date, 'yyyy-MM-dd'),
-          end_date: booking.end_date ? new Date(booking.end_date) : '',
-          washingPrice: booking.services.find((s: Service) => s.serviceType === 'Washing')?.price,
-          dentingPaintingPrice: booking.services.find((s: Service) => s.serviceType === 'Denting & painting')?.price,
-          acworkPrice: booking.services.find((s: Service) => s.serviceType === 'Ac work')?.price,
-          electricworkPrice: booking.services.find((s: Service) => s.serviceType === 'Electricwork')?.price,
-          brackdownPrice: booking.services.find((s: Service) => s.serviceType === 'Brackdown')?.price,
-          rrPrice: booking.services.find((s: Service) => s.serviceType === 'RR')?.price,
+          start_date: formattedStartDate,
           advance_payment: booking.advance_payment,
           status: booking.status,
           kilometres: booking.kilometres,
           issue: booking.issue,
           additional_requirements: booking.additional_requirements,
+          washing: booking.services.some((s: any) => s.serviceType === 'Washing'),
+          dentingPainting: booking.services.some((s: any) => s.serviceType === 'Denting & painting'),
+          acwork: booking.services.some((s: any) => s.serviceType === 'Ac work'),
+          electricwork: booking.services.some((s: any) => s.serviceType === 'Electricwork'),
+          brackdown: booking.services.some((s: any) => s.serviceType === 'Brackdown'),
+          rr: booking.services.some((s: any) => s.serviceType === 'RR')
         });
-        this.loading$ = false
+        this.loading$ = false;
       }
     });
   }
 
-
-  // onServiceChange(index: number, event: Event): void {
-  //   const value = (event.target as HTMLInputElement).value;
-  //   this.serviceItems[index].serviceName = value;
-  // }
-
-  // onServicePriceChange(index: number, event: Event): void {
-  //   const value = (event.target as HTMLInputElement).value;
-  //   this.serviceItems[index].servicePrice = value;
-  //   this.calculateTotal(index);
-  // }
-
-  // onServiceQtyChange(index: number, event: Event): void {
-  //   const value = (event.target as HTMLInputElement).value;
-  //   this.serviceItems[index].qty = value;
-  //   this.calculateTotal(index);
-  // }
-
-  // calculateTotal(index: number): void {
-  //   const price = parseFloat(this.serviceItems[index].servicePrice);
-  //   const qty = parseFloat(this.serviceItems[index].qty);
-  //   if (!isNaN(price) && !isNaN(qty)) {
-  //     this.serviceItems[index].total = (price * qty).toFixed(2);
-  //   } else {
-  //     this.serviceItems[index].total = "";
-  //   }
-  // }
-
-  // addService(): void {
-  //   const newItemValue = this.serviceItems.length + 1;
-  //   this.serviceItems.push({ value: newItemValue, qty: "", serviceName: '', servicePrice: '', total: "" });
-  // }
-
-  // removeService(index: number): void {
-  //   this.serviceItems.splice(index, 1);
-  // }
-
-  trackByIndex(index: number, item: any): number {
-    return index; // or unique identifier if available
-  }
-
   onSubmit() {
+
+    if (!this.bookingForm.value.customerId) {
+      this.toster.error("select customer", "Error")
+    }
+
     if (this.bookingForm.invalid) {
       this.bookingForm.markAllAsTouched();
       return;
     }
 
-    const formattedStartDate = this.datePipe.transform(this.bookingForm.value.start_date, 'dd-MM-yyyy');
-    const formattedEndDate = this.datePipe.transform(this.bookingForm.value.end_date, 'dd-MM-yyyy');
+    const formattedStartDate = this.datePipe.transform(this.bookingForm.value.start_date, 'yyyy-MM-dd');
 
     const services: Service[] = [
-      {
-        serviceType: 'Washing',
-        price: this.bookingForm.value.washingPrice,
-      },
-      {
-        serviceType: 'Denting & painting',
-        price: this.bookingForm.value.dentingPaintingPrice,
-      },
-      {
-        serviceType: 'Ac work',
-        price: this.bookingForm.value.acworkPrice,
-      },
-      {
-        serviceType: 'Electricwork',
-        price: this.bookingForm.value.electricworkPrice,
-      },
-      {
-        serviceType: 'Brackdown',
-        price: this.bookingForm.value.brackdownPrice,
-      },
-      {
-        serviceType: 'RR',
-        price: this.bookingForm.value.rrPrice,
-      },
-    ];
+      { serviceType: 'Washing', isSelected: this.bookingForm.value.washing },
+      { serviceType: 'Denting & painting', isSelected: this.bookingForm.value.dentingPainting },
+      { serviceType: 'Ac work', isSelected: this.bookingForm.value.acwork },
+      { serviceType: 'Electricwork', isSelected: this.bookingForm.value.electricwork },
+      { serviceType: 'Brackdown', isSelected: this.bookingForm.value.brackdown },
+      { serviceType: 'RR', isSelected: this.bookingForm.value.rr }
+    ].filter(service => service.isSelected);
 
     const booking: CarBooking = {
       id: this.bookingId || '',
       customerId: this.bookingForm.value.customerId,
       start_date: formattedStartDate,
-      end_date: formattedEndDate,
+      end_date: formattedStartDate,
       advance_payment: this.bookingForm.value.advance_payment,
       status: this.bookingForm.value.status,
       kilometres: this.bookingForm.value.kilometres,
       issue: this.bookingForm.value.issue,
       additional_requirements: this.bookingForm.value.additional_requirements,
-      services: services,
+      services: services.map(service => ({
+        serviceType: service.serviceType,
+        isSelected: service.isSelected // Ensure this property is included
+      }))
     };
 
-    console.log(booking);
+    console.log({ booking });
+
     if (booking.id) {
       this.store.dispatch(BookingActions.updateData({ booking }));
     } else {

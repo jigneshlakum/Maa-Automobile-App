@@ -9533,7 +9533,7 @@ body.dark .form__input {
   transition: opacity 0.2s;
 }
 .checkbox__text {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   padding-left: 16px;
   font-size: 15px;
   line-height: 1.71429;

@@ -2,7 +2,7 @@
 
 export interface Service {
   serviceType: string;
-  price: number;
+  isSelected: boolean;
 }
 
 export interface CarBooking {

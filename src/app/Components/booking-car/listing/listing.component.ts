@@ -49,7 +49,6 @@ export class ListingComponent implements OnInit {
     this._store.dispatch(BookingActions.loadData(payload));
     this._store.select(selectAllBookings).subscribe((item) => {
       // if (item && item.length > 0) {
-      console.log(item);
       this.carBooking$ = item;
       this.updateDisplayedData();
       // }
@@ -66,8 +65,6 @@ export class ListingComponent implements OnInit {
     this._displayedItems = this.carBooking$.slice(startIndex, endIndex).map((item) => {
       return {
         ...item,
-        // start_date: this.datePipe.transform(item.start_date, 'd-MMMM-y'),
-        // end_date: this.datePipe.transform(item.end_date, 'd-MMMM-y')
       } as CarBooking;
     });
   }
@@ -101,7 +98,7 @@ export class ListingComponent implements OnInit {
   }
 
   onDateSelect(event: any): void {
-    const payload = { selectedDate: this.datePipe.transform(event.target.value, 'dd-MM-yyyy') }
+    const payload = { selectedDate: this.datePipe.transform(event.target.value, 'yyyy-MM-dd') }
     this.updateDisplayedData();
     this._store.dispatch(BookingActions.loadData(payload));
   }
