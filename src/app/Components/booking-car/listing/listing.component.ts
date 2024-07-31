@@ -111,4 +111,9 @@ export class ListingComponent implements OnInit {
   navigateToRoute(item: any): void {
     this.router$.navigate(['/booking/edit'], { queryParams: { id: item._id } });
   }
+
+  navigateToRouteCreateInvoice(item: any): void {
+    this.router$.navigate(['/invoice/create'], { queryParams: { invoiceId: item._id } });
+  }
+
 }

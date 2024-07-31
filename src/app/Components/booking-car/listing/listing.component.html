@@ -9,8 +9,8 @@
             <div class="card__head">
                 <div class="title-purple card__title">{{_pageTitle}}</div>
                 <div class="form">
-                    <input class="form__input" type="date" name="search" placeholder="Select Date.."
-                        autocomplete="off" (change)="onDateSelect($event)" />
+                    <input class="form__input" type="date" name="search" placeholder="Select Date.." autocomplete="off"
+                        (change)="onDateSelect($event)" />
                     <button type="button" class="form__button" (click)="clearDate()">
                         <svg class="icon icon-search">
                             <use xlink:href="#icon-search"></use>
@@ -68,6 +68,11 @@
                                         <button class="actionsBtn" (click)="toggleDeleteDialog(item)">
                                             <svg class="icon icon-trash">
                                                 <use xlink:href="#icon-trash"></use>
+                                            </svg>
+                                        </button>
+                                        <button class="actionsBtn" (click)="navigateToRouteCreateInvoice(item)">
+                                            <svg class="icon icon-file-add">
+                                                <use xlink:href="#icon-file-add"></use>
                                             </svg>
                                         </button>
                                     </div>

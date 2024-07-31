@@ -1,0 +1,103 @@
+@if(loading$){
+<div class="topbar-progress"></div>
+}
+
+<div class="page__inner">
+    <div class="page__container">
+        <div class="create">
+            <div class="create__card card">
+                <div class="card__head">
+                    <div class="title-green card__title">{{ _pageTitle }}</div>
+                    <a class="button-stroke button-small card__button" routerLink="/booking">
+                        <svg class="icon icon-arrow-left">
+                            <use xlink:href="#icon-arrow-left"></use>
+                        </svg>
+                        <span>Back</span>
+                    </a>
+                </div>
+                <hr />
+                <form class="invoice-form" (ngSubmit)="saveInvoice()">
+                    <div class="invoice-header">
+                        <img src="../../../assets/img/content/avatar.jpg" alt="Company Logo" class="invoice-logo" />
+                        <div class="invoice-details">
+                            <h1>Invoice</h1>
+                            <p>Invoice Number: #INV001</p>
+                            <p>Date: {{ _currentDate }}</p>
+                        </div>
+                    </div>
+
+                    <div class="invoice-info">
+                        <div class="invoice-info__client">
+                            <h2>Bill To:</h2>
+                            <p>Name</p>
+                            <p>customerAddress</p>
+                            <p>customerCity, customerPostalCode</p>
+                            <p>customerCountry </p>
+                            <p>Vehicle: GJ 36 2222</p>
+                        </div>
+                        <div class="invoice-info__company">
+                            <h2>From:</h2>
+                            <p>Maa Automobile </p>
+                            <p>companyAddress</p>
+                            <p>companyCity, companyPostalCode</p>
+                            <p>companyCountry</p>
+                            <p>Service Center: serviceCenter</p>
+                        </div>
+                    </div>
+
+                    <div class="invoice-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of invoiceItems; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td><input [(ngModel)]="item.description" name="description-{{i}}" /></td>
+                                    <td>
+                                        <input type="number" [(ngModel)]="item.quantity" name="quantity-{{i}}"
+                                            (change)="updateTotal(i)" min="1" required />
+                                    </td>
+                                    <td>
+                                        <input type="number" [(ngModel)]="item.unitPrice" name="unitPrice-{{i}}"
+                                            (change)="updateTotal(i)" min="0" step="0.01" required />
+                                    </td>
+                                    <td>{{ item.total | currency:'INR' }}</td>
+                                    <td>
+                                        @if (invoiceItems.length !== 1) {
+                                        <button class="" (click)="removeItem(i)">
+                                            <svg class="icon icon-trash">
+                                                <use xlink:href="#icon-trash"></use>
+                                            </svg>
+                                        </button>
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="button-stroke button-small card__button"
+                            (click)="addItem()">Add</button>
+                    </div>
+
+                    <div class="invoice-footer">
+                        <div class="invoice-total">
+                            <h2>Total: {{ invoiceTotal | currency:'INR' }}</h2>
+                        </div>
+                        <div class="invoice-actions">
+                            <button type="submit" class="button panel__button" disabled>
+                                <span>{{ _label }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

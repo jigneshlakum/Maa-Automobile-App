@@ -24,6 +24,11 @@ export const routes: Routes = [
         title: 'Booking-Car',
         loadChildren: () => import('./Components/booking-car/booking-car.module').then(m => m.BookingCarModule)
       },
+      {
+        path: 'invoice',
+        title: 'Invoice',
+        loadChildren: () => import('./Components/Invoces/invoice.module').then(m => m.InvoiceModule)
+      },
     ],
   },
 ];
