@@ -8,7 +8,7 @@
             <div class="create__card card">
                 <div class="card__head">
                     <div class="title-green card__title">{{ _pageTitle }}</div>
-                    <a class="button-stroke button-small card__button" routerLink="/booking">
+                    <a class="button-stroke button-small card__button" routerLink="/invoice">
                         <svg class="icon icon-arrow-left">
                             <use xlink:href="#icon-arrow-left"></use>
                         </svg>
@@ -21,7 +21,7 @@
                         <img src="../../../assets/img/content/avatar.jpg" alt="Company Logo" class="invoice-logo" />
                         <div class="invoice-details">
                             <h1>Invoice</h1>
-                            <p>Invoice Number: #INV001</p>
+                            <p>Invoice Number: {{invoiceNumber$}}</p>
                             <p>Date: {{ _currentDate }}</p>
                         </div>
                     </div>
@@ -29,19 +29,17 @@
                     <div class="invoice-info">
                         <div class="invoice-info__client">
                             <h2>Bill To:</h2>
-                            <p>Name</p>
-                            <p>customerAddress</p>
-                            <p>customerCity, customerPostalCode</p>
-                            <p>customerCountry </p>
-                            <p>Vehicle: GJ 36 2222</p>
+                            <p>{{customerDtails?.vehicleNumber}}</p>
+                            <p>{{customerDtails?.customerName}}</p>
+                            <p>{{customerDtails?.mobileNumber}}</p>
+                            <p>{{customerDtails?.email}}</p>
+                            <p>{{customerDtails?.fullAddress}}</p>
                         </div>
                         <div class="invoice-info__company">
                             <h2>From:</h2>
-                            <p>Maa Automobile </p>
-                            <p>companyAddress</p>
-                            <p>companyCity, companyPostalCode</p>
-                            <p>companyCountry</p>
-                            <p>Service Center: serviceCenter</p>
+                            <p>Maa Automobile,</p>
+                            <p>19,Shridhar Family, Opp. Shyamaji Farm,Vastral Road,</p>
+                            <p>Ahmedabad-382418</p>
                         </div>
                     </div>
 
@@ -88,12 +86,21 @@
 
                     <div class="invoice-footer">
                         <div class="invoice-total">
-                            <h2>Total: {{ invoiceTotal | currency:'INR' }}</h2>
+                            <h2>Total: {{ finalAmount | currency:'INR' }}</h2>
                         </div>
-                        <div class="invoice-actions">
-                            <button type="submit" class="button panel__button" disabled>
+                        <div class="filters__btns">
+                            <a class="button-stroke panel__button  answer__button" routerLink="/invoice">Cancel</a>
+                            @if(!_btnLoading){
+                            <button class="button panel__button">
                                 <span>{{ _label }}</span>
                             </button>
+                            }
+
+                            @if(_btnLoading){
+                            <button class="button panel__button">
+                                Please wait... <i class="fa fa-refresh fa-spin"></i>
+                            </button>
+                            }
                         </div>
                     </div>
                 </form>

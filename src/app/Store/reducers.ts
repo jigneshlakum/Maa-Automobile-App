@@ -6,6 +6,7 @@ import { menuReducer } from './SidebarAction/sidebar.reducer';
 import { employeeReducer } from './Employee/employees.reducer';
 import { customerReducer } from './CustomerAction/customer.reducer';
 import { bookingReducer } from './Car-Booking/car-booking.reducer';
+import { invoiceReducer } from './InvoiceAction/invoice.reducer';
 
 export interface AppState {
   auth: any;
@@ -20,6 +21,6 @@ export const reducers: ActionReducerMap<any> = {
   menu : menuReducer,
   employeeItems : employeeReducer,
   customers:customerReducer,
-  bookings : bookingReducer
-  // add more reducers here
+  bookings : bookingReducer,
+  invoices:invoiceReducer
 };

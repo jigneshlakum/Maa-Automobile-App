@@ -28,7 +28,6 @@ export class AddComponent implements OnInit {
     customerName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     mobileNumber: ['', [Validators.required]],
-    city: ['', [Validators.required]],
     brandName: ['', [Validators.required]],
     modelName: ['', [Validators.required]],
     fullAddress: [''],
@@ -39,7 +38,7 @@ export class AddComponent implements OnInit {
     private builder: FormBuilder,
     private store: Store,
     private activateroute$: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._pageTitle = this.activateroute$.snapshot.data['title'];
@@ -53,10 +52,6 @@ export class AddComponent implements OnInit {
       }
     });
 
-    // Initialize niceSelect after view is initialized
-    $(document).ready(() => {
-      $('select').niceSelect();
-    });
   }
 
   uppercaseValidator(control: AbstractControl): { [key: string]: any } | null {
@@ -70,7 +65,7 @@ export class AddComponent implements OnInit {
   }
 
   private getCustomerById(id: string) {
-   
+
     this.store.dispatch(CustomerActions.getCustomerById({ id: id }));
 
     this.store.select(selectCustomer).subscribe((state: any) => {
@@ -82,7 +77,6 @@ export class AddComponent implements OnInit {
           customerName: customer.customerName,
           email: customer.email,
           mobileNumber: customer.mobileNumber,
-          city: customer.city,
           brandName: customer.brandName,
           modelName: customer.modelName,
           fullAddress: customer.fullAddress,
