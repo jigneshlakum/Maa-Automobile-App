@@ -4,6 +4,6 @@ export const environment = {
   // apiUrl: 'http://localhost:8080/api/', // Example API URL for development
   // imgUrl: 'http://localhost:8080' // Example API URL for development
 
-  apiUrl: 'https://maa-automobile-api.vercel.app/api/', // live
-  imgUrl: 'https://maa-automobile-api.vercel.app' // live
+  apiUrl: 'https://maa-automobileapi.onrender.com/api/', // live
+  imgUrl: 'https://maa-automobileapi.onrender.com' // live
 };

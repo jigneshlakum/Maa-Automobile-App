@@ -88,15 +88,15 @@
                         <div class="invoice-total">
                             <h2>Total: {{ finalAmount | currency:'INR' }}</h2>
                         </div>
+                        
                         <div class="filters__btns">
                             <a class="button-stroke panel__button  answer__button" routerLink="/invoice">Cancel</a>
-                            @if(!_btnLoading){
+                            @if(!loading$){
                             <button class="button panel__button">
                                 <span>{{ _label }}</span>
                             </button>
                             }
-
-                            @if(_btnLoading){
+                            @if(loading$){
                             <button class="button panel__button">
                                 Please wait... <i class="fa fa-refresh fa-spin"></i>
                             </button>

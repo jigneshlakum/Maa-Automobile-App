@@ -27,10 +27,10 @@ export class InvoiceService {
 
   getInvoices(): Observable<{ status: boolean, data: InvoiceModel[], message: string }> {
     const headers = this.getHeaders();
-    return this.http.get<{ status: boolean, data: InvoiceModel[], message: string }>(`${this.APIBaseUrl}customers`, { headers });
+    return this.http.get<any>(`${this.APIBaseUrl}invoices`, { headers });
   }
 
-  saveInvoice(customer: InvoiceModel): Observable<{ status: boolean, message: string }> {
+  saveInvoice(customer: any): Observable<{ status: boolean, message: string }> {
     const headers = this.getHeaders();
     return this.http.post<{ status: boolean, message: string }>(`${this.APIBaseUrl}invoices`, customer, { headers });
   }
@@ -45,7 +45,7 @@ export class InvoiceService {
     return this.http.get<InvoiceModel>(`${this.APIBaseUrl}invoices/${id}`, { headers });
   }
 
-  updateInvoice(customer: InvoiceModel): Observable<{ status: boolean, message: string }> {
+  updateInvoice(customer: any): Observable<{ status: boolean, message: string }> {
     const headers = this.getHeaders();
     return this.http.put<{ status: boolean, message: string }>(`${this.APIBaseUrl}invoices`, customer, { headers });
   }

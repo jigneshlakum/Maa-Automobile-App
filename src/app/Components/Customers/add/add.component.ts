@@ -38,7 +38,11 @@ export class AddComponent implements OnInit {
     private builder: FormBuilder,
     private store: Store,
     private activateroute$: ActivatedRoute
-  ) { }
+  ) {
+    this.customerForm.get('vehicleNumber')?.valueChanges.subscribe(value => {
+      this.customerForm.get('vehicleNumber')?.setValue(value!.toUpperCase(), { emitEvent: false });
+    });
+  }
 
   ngOnInit(): void {
     this._pageTitle = this.activateroute$.snapshot.data['title'];

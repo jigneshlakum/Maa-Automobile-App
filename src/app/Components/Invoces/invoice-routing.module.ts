@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', data: { title: "Invoices " }, component: ListingInvoicesComponent },
   { path: 'create', data: { title: "Create Invoice" }, component: CreateinvoiceComponent },
-  // { path: 'edit', data: { title: "Update" }, component: AddAndEditComponent },
+  { path: 'edit', data: { title: "Update Invoice" }, component: CreateinvoiceComponent },
 ];
 
 

@@ -115,7 +115,6 @@ export class AddAndEditComponent implements OnInit {
   }
 
   onSubmit() {
-
     if (!this.bookingForm.value.customerId) {
       this.toster.error("select customer", "Error")
     }
@@ -124,9 +123,8 @@ export class AddAndEditComponent implements OnInit {
       this.bookingForm.markAllAsTouched();
       return;
     }
-
+    this.loading$ = true
     const formattedStartDate = this.datePipe.transform(this.bookingForm.value.start_date, 'yyyy-MM-dd');
-
     const services: Service[] = [
       { serviceType: 'Washing', isSelected: this.bookingForm.value.washing },
       { serviceType: 'Denting & painting', isSelected: this.bookingForm.value.dentingPainting },
@@ -151,8 +149,6 @@ export class AddAndEditComponent implements OnInit {
         isSelected: service.isSelected // Ensure this property is included
       }))
     };
-
-    console.log({ booking });
 
     if (booking.id) {
       this.store.dispatch(BookingActions.updateData({ booking }));

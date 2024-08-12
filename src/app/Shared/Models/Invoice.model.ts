@@ -6,7 +6,12 @@ export interface InvoiceItem {
 }
 
 export interface InvoiceModel {
-  customerId: string;
+  id: any;
+  customerId: {
+    _id: string;
+    customerName: string;
+    vehicleNumber: string;
+  };
   invoiceNumber: string;
   date: string;
   finalAmount: number;

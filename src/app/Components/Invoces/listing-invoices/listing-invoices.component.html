@@ -1,1 +1,82 @@
-<p>listing-invoices works!</p>
+@if(loading$){
+<div class="topbar-progress"></div>
+}
+
+
+<div class="page__inner">
+    <div class="page__container">
+        <div class="customer card">
+            <div class="card__head">
+                <div class="title-purple card__title">Customers</div>
+                <form class="form">
+                    <input class="form__input" type="text" name="search" [(value)]="_searchTerm"
+                        placeholder="Invoice Number.." required="required" autocomplete="off"
+                        (input)="onSearch($event)" />
+                    <button class="form__button">
+                        <svg class="icon icon-search">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                    </button>
+                </form>
+                <!-- <button routerLink="/customers/add" class="button filters__button">
+                    <svg class="icon icon-add">
+                        <use xlink:href="#icon-plus"></use>
+                    </svg><span>Create</span></button> -->
+            </div>
+            <div class="card">
+                <div class="payout">
+                    <div class="payout__wrapper table-responsive">
+                        <div class="payout__table ">
+                            <div class="payout__row">
+                                <div class="payout__col">Vehicle Number</div>
+                                <div class="payout__col">Customber Name</div>
+                                <div class="payout__col">Invoice Number</div>
+                                <div class="payout__col">Amount</div>
+                                <div class="payout__col">Date</div>
+                                <div class="payout__col">Action</div>
+                            </div>
+                            @for (item of _displayedItems; track $index) {
+                            <div class="payout__row">
+                                <div class="payout__col uppercase">{{item.customerId.vehicleNumber}}</div>
+                                <div class="payout__col">{{item.customerId.customerName}}</div>
+                                <div class="payout__col">{{item.invoiceNumber}}</div>
+                                <div class="payout__col">{{item.finalAmount}}</div>
+                                <div class="payout__col">{{item.date}}</div>
+                                <div class="payout__col">
+
+                                    <div class="action-buttons">
+                                        <button class="actionsBtn" (click)="navigateToRoute(item)">
+                                            <svg class="icon icon-edit">
+                                                <use xlink:href="#icon-edit"></use>
+                                            </svg>
+                                        </button>
+                                        <button class="actionsBtn" (click)="toggleDeleteDialog(item)">
+                                            <svg class="icon icon-trash">
+                                                <use xlink:href="#icon-trash"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                            } @empty{
+                            <div id="message-not-found">Data not found</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (_displayedItems.length > 0) {
+            <div class="filters__btns">
+                <button class="button filters__button" (click)="previousPage()">Previous</button>
+                <button class="button filters__button" (click)="nextPage()">Next</button>
+            </div>
+            }
+            <!-- here -->
+        </div>
+    </div>
+
+
+    <!-- delete dialog -->
+    <app-delete-dialog [addclass]="_showDeleteDialog" (toggleDeleteDialog)="toggleDeleteDialog(0)"
+        (delete)="delete()" />
